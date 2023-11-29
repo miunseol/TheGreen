@@ -1,0 +1,51 @@
+*{
+  margin:0; padding:0; border: 0;
+  box-sizing: border-box;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+ul,ol,li{
+  list-style: none;
+}
+a{
+  text-decoration: none;
+  color: #051809;
+}
+
+/* 만약 한글이라 문제가 되면 한꺼번에 변경하기로  */
+.head상단메뉴M{
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.head메뉴R{
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.body내용설명R{
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.footer중요부분B{
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.footert설명R{
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.footer메뉴M{
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
