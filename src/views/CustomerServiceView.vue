@@ -2,8 +2,8 @@
 </template>
 
 <script>
-
 export default {
-  name: "HomeView",
+  name: "Customer Service",
+
 };
 </script>
