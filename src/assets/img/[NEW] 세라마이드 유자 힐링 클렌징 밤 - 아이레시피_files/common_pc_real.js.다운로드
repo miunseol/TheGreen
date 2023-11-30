@@ -1,0 +1,848 @@
+/**
+* 카페24쇼핑몰 선물하기 공통 
+*
+* @package gift
+* @author mintweb
+* @version 2022-08-26
+*/
+var mintweb = {};
+mintweb.gift = {
+	apiUrl : "https://giftmintweb.kr/gift/api/",
+	shop_no : 1,
+	mall_id : '',
+	config : undefined || {},
+	loc : '',
+	testFl : false,
+	start : function() {
+		if (this.loc == 'orderform' && !this.testFl) { // 주문서 기본 처리
+			mintweb.gift.loadHtml('order_default','body','append');
+		}
+		
+		/* 적용 가능 조건 체크 */
+		if (typeof this.config == "undefined" || typeof this.config.useRange == "undefined") return false;
+
+		var isPossible = false;
+		//console.log(this.loc);
+		switch (this.loc) {
+			case "main":
+				// 메인페이지에서 장바구니 아이콘 클릭시 나타나는 레이어 창에 선물하기 추가
+				if(this.config.mall_id == 'danbal10004') {
+					document.addEventListener('click', function (e) {
+						if (e.target && e.target.className == 'ec-admin-icon cart') {
+							setTimeout(function () {
+								$btn = $('.cartpopup_inner');
+								if ($btn.length > 0) {
+									// hidden 상태일때는 x
+									if (!$('#confirmLayer').is(':hidden')) {
+										var html = "<div class='webnmobile_product_html'>";
+										html += "<a href='#none' class='order_gift_btn' link-order='/order/orderform.html?basket_type=all_buy' link-login='/member/login.html'>";
+										html += "<img src='https://giftmintweb.kr/gift/custom/danbal10004/icn_gift.svg'>";
+										html += "</a></div>";
+
+										$('#confirmLayer .cartpopup_inner .ec-base-button').prepend(html);
+										addJavascript('https://giftmintweb.kr/gift/custom/danbal10004/main.js?time='+new Date().getTime());
+
+										var addLink = function(src){
+											// element 추가
+											var link   = document.createElement("link");
+											// href 어트리뷰트에 경로 추가
+											link.href   = src;
+											// 비동기식이 아닌 동기식으로 한다.
+											link.async = false;
+											// style일의 기본 어트리뷰트 추가
+											link.rel = "stylesheet";
+											link.type = "text/css";
+											// 헤더에 추가
+											document.head.appendChild(link);
+										}
+										addLink("https://giftmintweb.kr/gift/custom/danbal10004/main.css");
+									}
+
+								}
+
+							}, 1000);
+						}
+
+					});
+				}
+
+				break;
+			case "orderform":
+
+				if(this.config.useRange == 'none') return false;
+
+				this.deleteCookie("webnGiftOrder");
+				
+				var webnGiftProduct = this.getCookie("webnGiftProduct");
+
+				// 업체명 danbal10004 추가항목 제어 START
+				if(this.config.mall_id == 'danbal10004'){
+					// 추가항목(쇼핑백 추가) 가리기
+					if(!webnGiftProduct){
+						$('[fw-label="쇼핑백 추가"]').closest('tr').addClass('displaynone');
+					}
+				}
+				// END
+				var login = this.checkLogin();
+
+				var noMember = this.config.useNoMember; // 2022.11.22 비회원일 선물하기 사용여부 추가
+				// 최근배송지 이슈 텍스트필드형식으로 되어 있으면 빈값으로 처리
+				if(this.mall_id == 'wiselycompany' || this.mall_id == 'upcyclist' || this.mall_id == 'nonfiction4096') {
+					var rzipcode1 = $('#rzipcode1').val();
+					var raddr1 = $('#raddr1').val();
+					var raddr2 = $('#raddr2').val();
+
+					if (rzipcode1 == '00000' || raddr1 == '받는 분이 배송지 정보를' || raddr2 == '입력하실 수 있습니다.') {
+						$('#rname').val('');
+						$('#rzipcode1').val('');
+						$('#raddr1').val('');
+						$('#raddr2').val('');
+						$('#rphone2_2').val('');
+						$('#rphone2_3').val('');
+					}
+
+
+				}
+
+				if(!login && webnGiftProduct && noMember =='0'){
+
+					if (alert("선물하기는 회원전용입니다.")) {
+						this.deleteCookie("webnGiftProduct");
+						this.deleteCookie("webnGiftOrder");
+						webnGiftProduct = 0;
+						this.config.useRange = "none";
+					}
+					window.history.back();
+					return;
+				}
+				
+				/* 국내 배송 주문서인지 체크하고 해외 배송인 경우 일반 주문 처리 */
+				var delvtype = this.getParam("delvtype");
+				if (webnGiftProduct && delvtype == 'B') {
+					if (confirm("선물하기는 국내배송지역에서만 가능합니다. 그래도 주문을 진행하시겠습니까?")) {
+						this.deleteCookie("webnGiftProduct");
+						this.deleteCookie("webnGiftOrder");
+						webnGiftProduct = 0;
+						this.config.useRange = "none";
+					} else {
+						window.history.back();
+						return;
+					}
+				}
+				if($('#is_subscription_invoice').val() == 'T' && (typeof webnGiftProduct != 'undefined' && webnGiftProduct == '1')){
+					
+					if(confirm("선물하기는 일반결제에서만 가능합니다. 그래도 주문을 진행하시겠습니까?")){
+	
+						this.deleteCookie("webnGiftProduct");
+						this.deleteCookie("webnGiftOrder");
+						webnGiftProduct = 0;
+						config.useRange = "none";
+					}else {
+					
+						window.history.back();
+						return;
+					}
+				}
+				
+				if (typeof webnGiftProduct != 'undefined' && webnGiftProduct == '1') {//상품상세에서 선물하기버튼 클릭시 주문서에서 호출
+					// 최근 배송지가 지역별 배송지 요금이 부과되는경우를 대비
+					$('#sameaddr1').click();
+					
+					try {
+						this.chkGiftProductOrder();
+					} catch (e) {
+						alert(e);
+						window.history.back();
+					}
+					isPossible = true;
+				}
+
+
+				break;
+			case "orderDone" :
+				/* 주문완료시에는 전체, 상품 개별 상관없이 선물하기 App으로 데이터를 전송 */
+					isPossible = true;
+				break;
+			case "orderDetail" :
+				this.deleteCookie("webnGiftProduct");
+				this.deleteCookie("webnGiftOrder");
+
+				var order_id = this.getParam('order_id');
+
+				var detailCheck = false;
+				var test = location.href;
+				test = test.split('&');
+				test.forEach (function (el , index){
+					if(el == 'mintweb=test'){
+						detailCheck = true;
+					}
+				});
+
+				//선물하기 주문 이용상점 이면 실행시작
+				//주문서 상세페이지 반응형
+				if(this.config.mall_id == 'webnmobile1') {
+					var getUrl = this.apiUrl + "order_detail";
+
+					$.ajax({
+						url: getUrl,
+						dataType: "html",
+						data: {order_id: order_id, mall_id: this.config.mall_id},
+						async: false,
+						type: "POST",
+						success: function (msg) {
+							//console.log('h');
+							//$('.xans-myshop-orderhistorydetail').after(msg);
+							//$('.xans-myshop-orderhistorydetail').remove();
+						},
+						error: function (res) {
+							console.log(res);
+						}
+					})
+				}
+				//
+
+
+				if(mintweb.gift.config.giftOrder){
+					isPossible = true;
+					var addhtml = "개인정보로 인해 보내시는 분이 받는 분 정보를 확인하실 수 없습니다";
+					if(this.config.mall_id == "nonfiction4096"){
+						$('label:contains("Address")').closest('.row').find('span').html(addhtml);
+					}else{
+						$('th:contains("주소")').closest('tbody').find('td').html(addhtml);
+					}
+
+				// 선물하기 주문건이 아니면 css 제거
+				}else{
+					$('.wm_receiver span , .wm_zipcode span , .wm_address span , .wm_tel span , .wm_phone span , .wm_message span').attr('style', function(i,s) { return (s || '') + 'display : block !important;' });
+				}
+				
+				break;
+			case "product" :
+//console.log(this.mall_id);
+				if(this.config.useRange == 'none') return false;
+
+				this.deleteCookie("webnGiftProduct");
+				
+				var product_no = $('meta[property="product:productId"]').attr('content');
+				/* 선물하기 사용자설정 커스텀 START */
+
+				if(this.config.customDesign){
+					if(this.config.customDesign.detailCfg == 'Y'){
+						// pc 커스텀
+						if(this.config.customDesign.design_position_p == 'user'){
+							// 기본 스타일
+							var customStyle = 'display:inline-flex; justify-content: center; align-items: center; cursor:pointer;';
+							// 배경 색
+							if(this.config.customDesign.viewColorBackground_p)
+								customStyle += ' background : '+this.config.customDesign.viewColorBackground_p+';';
+							// 글씨 색
+							if(this.config.customDesign.viewColorFont_p)
+								customStyle += ' color : '+this.config.customDesign.viewColorFont_p+';';
+							// 테두리 색
+							if(this.config.customDesign.viewColorBorder_p)
+								customStyle += ' border-color : '+this.config.customDesign.viewColorBorder_p+';';
+							// 넓이
+							if(this.config.customDesign.x_type_p == 'percent'){
+								customStyle += ' width : 100%;';
+							}else{
+								customStyle += ' width : '+this.config.customDesign.x_detail_p+'px;';
+							}
+							// 높이
+							if(this.config.customDesign.y_detail_p)
+								customStyle += ' height : '+this.config.customDesign.y_detail_p+'px;';
+							// 반지름
+							if(this.config.customDesign.radius_p)
+								customStyle += ' border-radius : '+this.config.customDesign.radius_p+'px;';
+							// 여백 (상,하,좌,우)
+							if(this.config.customDesign.b_up_p)
+								customStyle += ' margin-top : '+this.config.customDesign.b_up_p+'px;';
+							if(this.config.customDesign.b_down_p)
+								customStyle += ' margin-bottom : '+this.config.customDesign.b_down_p+'px;';
+							if(this.config.customDesign.b_left_p)
+								customStyle += ' margin-left : '+this.config.customDesign.b_left_p+'px;';
+							if(this.config.customDesign.b_right_p)
+								customStyle += ' margin-right : '+this.config.customDesign.b_right_p+'px;';
+							// 폰트크기
+							if(this.config.customDesign.font_p)
+								customStyle += ' font-size : '+this.config.customDesign.font_p+'px;';
+
+							if(this.config.mall_id == 'danbal10004'){
+								var customDesign = "<div class='webnmobile_product_html'><div class='gift_order_btn wbtns' style='"+customStyle+"'>";
+
+								if(this.config.productGiftBtnName){
+									customDesign+= this.config.productGiftBtnName;
+								}else{
+									customDesign+='선물하기';
+								}
+								customDesign+="<div><img src='https://giftmintweb.kr/gift/custom/danbal10004/icn_gift.svg'";
+								if(this.config.customDesign.icon_use_p == 'n'){
+									customDesign+= " style='display:none;'></div>";
+								}else{
+									customDesign+= "></div>";
+								}
+								customDesign+="</div></div>";
+							}else{
+								var customDesign = "<div class='webnmobile_product_html'><div class='gift_order_btn wbtns' style='"+customStyle+"'><div class='xi-gift-o xi-2x'";
+								if(this.config.customDesign.icon_use_p == 'n'){
+									customDesign+= " style='display:none;'></div>";
+								}else{
+									customDesign+= "></div>";
+								}
+
+								if(this.config.productGiftBtnName){
+									customDesign+= this.config.productGiftBtnName;
+								}else{
+									customDesign+='선물하기';
+								}
+								customDesign+="</div></div>";
+							}
+
+
+							$('.webnmobileCustom').append(customDesign);
+							// 선물하기 스크립트 추가
+							addJavascript('https://giftmintweb.kr/gift/product.js?time='+new Date().getTime());
+
+							var addLink = function(src){
+								// element 추가
+								var link   = document.createElement("link");
+								// href 어트리뷰트에 경로 추가
+								link.href   = src;
+								// 비동기식이 아닌 동기식으로 한다.
+								link.async = false;
+								// style일의 기본 어트리뷰트 추가
+								link.rel = "stylesheet";
+								link.type = "text/css";
+								// 헤더에 추가
+								document.head.appendChild(link);
+							}
+							addLink("https://giftmintweb.kr/gift/xeicon.min.css");
+						}
+
+					}
+				}
+
+				/* 선물하기 사용자설정 커스텀 END */
+
+
+				if (this.config.pList && this.config.pList.length > 0) {
+					for (key in this.config.pList) {
+						var c = this.config.pList[key];
+
+						if (c.product_no == product_no && c.isGift == '1') {
+							isPossible = true;
+							break;
+						}
+					}
+				} // endif 
+				
+				if(this.config.useRange == 'all'){
+					isPossible = true;
+				}
+
+				// 품절체크
+				if(this.config.soldOut == 'T'){
+					// 업체명 익스트림 모바일쪽 '후기' css 변경
+					if(this.config.mall_id == "theextreme"){
+						$('#orderFixArea .btn_review').css('position' , 'absolute').css('top' , '0').css('left' , '0').css('width' , '20%');
+					}
+					return false;
+				}
+				// loadHtml 추가
+				
+
+				break;
+			case "basket" :
+				if(this.config.useRange == 'none') return false;
+				this.deleteCookie("webnGiftProduct");
+				this.deleteCookie("webnGiftOrder");
+
+				var delvtype = this.getParam("delvtype");
+				if(delvtype == 'B'){ //해외배송인 경우 처리
+					break;
+				}
+				if(mintweb.gift.config.useBasket){
+					isPossible = true;
+				}
+
+				/* 선물하기 사용자설정 커스텀 START */
+				if(this.config.customDesign){
+					if(this.config.customDesign.detailCfg == 'Y'){
+						// pc 장바구니 커스텀
+						if(this.config.customDesign.design_position_cart_p == 'user'){
+							// 기본 스타일
+							var customStyle = 'display:inline-flex; justify-content: center; align-items: center; cursor:pointer;';
+							// 배경 색
+							if(this.config.customDesign.viewColorBackgroundCart_p)
+								customStyle += ' background : '+this.config.customDesign.viewColorBackgroundCart_p+';';
+							// 글씨 색
+							if(this.config.customDesign.viewColorFontCart_p)
+								customStyle += ' color : '+this.config.customDesign.viewColorFontCart_p+';';
+							// 테두리 색
+							if(this.config.customDesign.viewColorBorderCart_p)
+								customStyle += ' border-color : '+this.config.customDesign.viewColorBorderCart_p+';';
+							// 넓이
+							if(this.config.customDesign.x_type_cart_p == 'percent'){
+								customStyle += ' width : 100%;';
+							}else{
+								customStyle += ' width : '+this.config.customDesign.x_detail_cart_p+'px;';
+							}
+							// 높이
+							if(this.config.customDesign.y_detail_cart_p)
+								customStyle += ' height : '+this.config.customDesign.y_detail_cart_p+'px;';
+							// 반지름
+							if(this.config.customDesign.radius_cart_p)
+								customStyle += ' border-radius : '+this.config.customDesign.radius_cart_p+'px;';
+							// 여백 (상,하,좌,우)
+							if(this.config.customDesign.b_up_cart_p)
+								customStyle += ' margin-top : '+this.config.customDesign.b_up_cart_p+'px;';
+							if(this.config.customDesign.b_down_cart_p)
+								customStyle += ' margin-bottom : '+this.config.customDesign.b_down_cart_p+'px;';
+							if(this.config.customDesign.b_left_cart_p)
+								customStyle += ' margin-left : '+this.config.customDesign.b_left_cart_p+'px;';
+							if(this.config.customDesign.b_right_cart_p)
+								customStyle += ' margin-right : '+this.config.customDesign.b_right_cart_p+'px;';
+							// 폰트크기
+							if(this.config.customDesign.font_cart_p)
+								customStyle += ' font-size : '+this.config.customDesign.font_cart_p+'px;';
+
+
+							if(this.config.mall_id == 'danbal10004'){
+								var customDesign = "<div class='webnmobile_product_html'><a href='#none' onclick='' link-order='/order/orderform.html?basket_type=all_buy' link-login='/member/login.html' class='button theme1 order_gift_bottom_btn' style='"+customStyle+"'>";
+
+								customDesign+='선택 상품 선물';
+
+								customDesign+="<div><img src='https://giftmintweb.kr/gift/custom/danbal10004/icn_gift.svg'";
+								if(this.config.customDesign.icon_use_cart_p == 'n'){
+									customDesign+= " style='display:none;'></div>";
+								}else{
+									customDesign+= "></div>";
+								}
+								customDesign+="</a></div>";
+							}else {
+								var customDesign = "<div class='webnmobile_product_html'><a href='#none' onclick='' link-order='/order/orderform.html?basket_type=all_buy' link-login='/member/login.html' class='button theme1 order_gift_bottom_btn' style='" + customStyle + "'><div class='xi-gift-o xi-2x'";
+								if (this.config.customDesign.icon_use_cart_p == 'n') {
+									customDesign += " style='display:none;'></div>";
+								} else {
+									customDesign += "></div>";
+								}
+
+								if (this.config.mall_id == "yiseblanc") {
+									customDesign += '전체 상품 선물';
+								} else {
+									customDesign += '선택 상품 선물';
+								}
+
+								customDesign += "</a></div>";
+							}
+
+							// 선물하기 장바구니 스크립트 추가
+							if(this.config.mall_id == "yiseblanc"){
+								addJavascript('https://giftmintweb.kr/gift/custom_cart_all.js?time='+new Date().getTime());
+							}else{
+								addJavascript('https://giftmintweb.kr/gift/custom_cart.js?time='+new Date().getTime());
+							}
+
+							$('.webnmobileCustom').append(customDesign);
+						}
+
+					}
+				}
+				/* 선물하기 사용자설정 커스텀 END */
+
+				// loadHtml 추가
+				break;
+			case "login":
+				// 로그인시 이전페이지로 이동처리
+				var href = location.search.split('?');
+				if(href[1]){
+					var changeHref = $('.login .otherBtn a').prop('href');
+					$('.login .otherBtn a').prop('href' , changeHref+location.search);
+				}
+				break;
+
+			default : 
+				this.deleteCookie("webnGiftProduct");
+				this.deleteCookie("webnGiftOrder");
+				break;
+		}
+		// 스킨 추가
+
+
+		if(typeof this.config.pageData == 'object' && Object.keys(this.config.pageData).length > 0 && isPossible){
+			for (let key in this.config.pageData) {
+				const value = this.config.pageData[key];
+
+				value.forEach(function(el){
+					mintweb.gift.loadHtml(mintweb.gift.loc,el.selector,el.addType,{giftProduct : 1});
+				});
+			}
+		}
+	},
+	
+	/**
+	* 상점별 설정 조회 
+	*
+	* return Json
+	*/
+	getConfig : function() {
+		var order_id = '';
+		var product_no = 0;
+		
+		
+		switch (this.loc) {
+			case "orderDetail" :
+			case "orderDone" :
+				order_id = this.getParam("order_id");
+				if (typeof order_id == "undefined" || order_id == "") order_id = '';
+				break;
+			case "product" :
+				var paths = location.pathname.split("/");
+
+				product_no = parseInt(paths[3]);
+				if (isNaN(product_no)) product_no = 0;
+				
+				if (product_no == 0) {
+					product_no = parseInt(this.getParam('product_no'));
+					if (isNaN(product_no)) product_no = 0
+				}
+				break;
+			case "orderform":
+				break;
+		}
+
+		if(location.search.indexOf("mintweb=test") != -1){
+			this.testFl = true;
+		}
+
+		$.ajax({
+			url : this.apiUrl + "get_config",
+			type : "post",
+			dataType : "json",
+			data : {
+				mall_id : this.mall_id,
+				shop_no : this.shop_no,
+				location : this.loc,
+				product_no : product_no,
+				order_id : order_id,
+				testFl : this.testFl,
+				type : 'pc',
+			},
+			timeout : 3000,
+			success : function (data) {
+				if(data){
+					mintweb.gift.config = data;
+					mintweb.gift.start();
+
+					//console.log(data);
+
+					
+				}
+			},
+			error : function (res) {
+				mintweb.gift.config = null;
+				console.log(res);
+			}
+		});
+		
+	},
+	/**
+	* 선물하기에서 
+	* 여러상품이 주문되는경우 선물하기 이외의 상품이 적용되어 있다면 
+	* 함께 주문되지 않도록 차단 
+	* 
+	* throw Exception 
+	*/
+	chkGiftProductOrder : function() {
+		var config = mintweb.gift.config;
+		if (!config)
+			throw "선물하기 설정을 확인하세요.";
+
+		CAFE24API.getCartItemList(function(err, res) {
+			if (err) {
+				throw "주문 품목조회에 실패하였습니다.";
+			} else {
+				//console.log(res);
+				if (res && res.items.length > 0) {
+					var items = res.items;
+					items.forEach(function(el) {
+						//console.log(el);
+						var isPossible = false;
+						var product_no = el.product_no;
+
+						// if(config.mall_id == 'jamon788'){
+						// 	if(product_no == null){
+						// 		var index = items.findIndex(i=>i.product_no == null);
+						// 		if(index){
+						// 			items.splice(index,1);
+						// 		}
+						// 		console.log(items);
+						// 	}
+						// }
+
+						//if (config.pList && config.pList.length > 0) {
+							// 2022.11.21 전체상품일 경우, 장바구니 이용시 선물하기 가능
+							if(config.useRange == 'all' && config.right.basket == '1'){
+								isPossible = true;
+							}
+
+							// 2022.12.12 전체상품일 경우, 선물하기가능
+							if(config.useRange == 'all'){
+								isPossible = true;
+							}
+
+							// 2022.11.23 개별상품일 경우, 장바구니는 전체상품으로 선물하기 가능
+							if(config.useBasketAll == '1'){
+								isPossible = true;
+							}
+
+
+							for (key in config.pList) {
+								var c = config.pList[key];
+
+								if (c.product_no == product_no && c.isGift == '1') {
+									isPossible = true;
+								}else{
+									if(config.mall_id == 'jamon788' && product_no == null){ // 2022.11.23 jamon788은 자꾸 null 값이 하나씩 들어가서 오류발생해서 처리
+										isPossible = true;
+									}
+								}
+							}
+						//} // endif
+
+						if (!isPossible) {
+					
+							throw "선물하기가 가능하지 않은 상품과 함께 주문하실 수 없습니다.";
+
+						}
+					});
+				} else {
+					throw "주문 상품이 존재하지 않습니다.";
+				}
+			}
+		});
+	},
+	/**
+	* 페이지 구분
+	* 
+	* return String 페이지 종류 
+	*/
+	getLocation : function() {
+		var loc = "";
+		var type = document.querySelector("[name=path_role][content]").content;
+
+		switch (type) {
+			/* 주문서 */
+			case "ORDER_ORDERFORM" : 
+				loc  = "orderform";
+				break;
+			/* 주문완료 */
+			case "ORDER_ORDERRESULT" : 
+				loc = "orderDone"; 
+				break;
+			/* 주문상세조회 */
+			case "MYSHOP_ORDER_DETAIL" : 
+				loc = "orderDetail";
+				break;
+			/* 장바구니 */
+			case "ORDER_BASKET" :
+				loc = "basket";
+				break;
+			/* 상품 상세 */
+			case "PRODUCT_DETAIL" :
+				loc = "product";
+				break;
+			/* 로그인페이지 */
+			case "MEMBER_LOGIN":
+				loc = "login";
+				break;
+			/* 메인페이지 */
+			case "MAIN":
+				loc = "main";
+				break;
+			default : 
+				break;
+		}
+		
+		return loc;
+	},
+	/**
+	* 현재 URL에서 파라미터 값 추출 
+	*
+	* @param String 파라미터 key 
+	* @return String 파라미터 value 
+	*/
+	getParam : function(sname) {
+		var params = location.search.substr(location.search.indexOf("?") + 1);
+		var sval = "";
+		params = params.split("&");
+		for (var i = 0; i < params.length; i++) {
+			temp = params[i].split("=");
+			if ([temp[0]] == sname) {
+				sval = temp[1]; 
+			}
+		}
+		return sval;
+	},
+	/**
+	* 쿠키 설정 
+	*
+	*/
+	setCookie  : function(name, value, day) {
+        var date = new Date();
+        date.setTime(date.getTime() + day * 60 * 60 * 24 * 1000);
+        document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
+    },
+	/**
+	* 쿠키 조회 
+	*
+	*/
+	getCookie : function(name) {
+        var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+        return value? value[2] : null;
+    },
+	/**
+	* 쿠키 삭제 
+	*
+	*/
+	deleteCookie : function(name) {
+        var date = new Date();
+        document.cookie = name + "= " + "; expires=" + date.toUTCString() + "; path=/";
+    },
+    decodeHtml : function (str) {
+		var map = {
+			'&amp;': '&',
+			'&lt;': '<',
+			'&gt;': '>',
+			'&quot;': '"',
+			'&#039;': "'"
+		};
+		return str.replace(/&amp;|&lt;|&gt;|&quot;|&#039;/g, function(m) {return map[m];});
+	},
+	/**
+	* 추가 필요 form html 로드 
+	*
+	* @param String mode html 모드 
+	* @param String target html 적용할 클래스 또는 아이디
+	* @param String type - replace, append, prepend - html 적용 타입 
+	* @param Array  params 추가 파라미터 
+	*
+	* @return Boolean
+	*/
+	loadHtml : function(mode, target, type, params) {
+		if (typeof mode == "undefined" || mode == "" || type == "undefined" || type == "")
+			return false;
+		
+		if (typeof type == "undefined" || type == "") type = "replace";
+		
+		if (typeof params == "undefined" || params == "") params = {};
+
+		$.ajax({
+			url : mintweb.gift.apiUrl + "html",
+			type : "post",
+			dataType : "html",
+			data : {
+				mode : mode,
+				mall_id : mintweb.gift.mall_id,
+				params : params,
+				type : 'pc',
+				selector : target,
+				addType : type,
+				testFl : this.testFl,
+			},
+			success : function (data) {
+				data = mintweb.gift.decodeHtml(data);
+				$obj = $(target);
+				switch (type) {
+					case "replace" : 
+						$obj.html(data);
+						break;
+					case "append" : 
+						$obj.append(data);
+						break;
+					case "prepend" : 
+						$obj.prepend(data);
+						break;
+					case "after" :
+						$obj.after(data);
+						break;
+					case "before" :
+						$obj.before(data);
+						break;
+				}
+			},
+			error : function (res) {
+				console.log(res);
+			}
+		});
+		
+		return true;
+	},
+	checkLogin : function() {
+		var result = false;
+		CAFE24API.getCustomerIDInfo(function(err, res) {
+		    if (err) {
+		    } else {
+		        // res 개체를 통해 응답 메세지를 확인할 수 있습니다.
+		    	if(res['id']['member_id']){
+		    		result = true;
+		    	}
+		    }
+		});
+		return result;
+	},
+	init : function(mall_id, shop_no) {
+		this.mall_id = mall_id;
+		this.shop_no = shop_no;
+		
+		this.loc = this.getLocation();
+		
+		this.getConfig();
+	},
+	
+	
+};
+
+function basketClick()
+{
+	setTimeout(function () {
+		$btn = $('.cartpopup_inner');
+		if ($btn.length > 0) {
+			// hidden 상태일때는 x
+			//if (!$('#confirmLayer').is(':hidden')) {
+				var html = "<div class='webnmobile_product_html'>";
+				html += "<a href='#none' class='order_gift_btn' link-order='/order/orderform.html?basket_type=all_buy' link-login='/member/login.html'>";
+				html += "<img src='https://giftmintweb.kr/gift/custom/danbal10004/icn_gift.svg'>";
+				html += "</a></div>";
+
+				$('#confirmLayer .cartpopup_inner .ec-base-button').prepend(html);
+				addJavascript('https://giftmintweb.kr/gift/custom/danbal10004/main.js?time=' + new Date().getTime());
+
+				var addLink = function (src) {
+					// element 추가
+					var link = document.createElement("link");
+					// href 어트리뷰트에 경로 추가
+					link.href = src;
+					// 비동기식이 아닌 동기식으로 한다.
+					link.async = false;
+					// style일의 기본 어트리뷰트 추가
+					link.rel = "stylesheet";
+					link.type = "text/css";
+					// 헤더에 추가
+					document.head.appendChild(link);
+				}
+				addLink("https://giftmintweb.kr/gift/custom/danbal10004/main.css");
+			//}
+
+		}
+
+	}, 1000);
+}
+(function(CAFE24API) {
+	/* 선물하기 초기화 */
+	mintweb.gift.init(CAFE24API.MALL_ID, CAFE24API.SHOP_NO);
+	
+	
+})(CAFE24API.init({
+	client_id : 'fU0bdPHmdiERv19cY2PSCG',
+	version : '2022-06-01',
+}));

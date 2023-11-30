@@ -1,11 +1,17 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">Aboutd</router-link>
-  </nav>
-  <router-view/>
+  <div>
+    <review-header/>
+    <review-footer/>
+  </div>
+  
 </template>
-
+<script>
+import ReviewHeader from './components/ReviewHeader.vue';
+import ReviewFooter from './components/ReviewFooter.vue';
+export default {
+  components:{ReviewHeader,ReviewFooter,}
+}
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
