@@ -1,0 +1,32 @@
+// Required
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+
+// Default variable overrides
+$primary : #24A841;
+$secondary : #051809;
+*{
+  border:0; margin:0; padding:0;
+  user-select: none;
+}
+.container{
+  min-width:1024px;
+  max-width:1200px;
+}
+a{
+  text-decoration: none;
+  color: $secondary;
+}
+ul,ol,li{
+  list-style: none;
+  margin-bottom: 0;
+}
+li>a{
+  padding: 20px 4px;
+  height: 100%;
+}
+// Required
+@import "../../../node_modules/bootstrap/scss/variables";
+@import "../../../node_modules/bootstrap/scss/variables-dark";
+@import "../../../node_modules/bootstrap/scss/maps";
+@import "../../../node_modules/bootstrap/scss/mixins";
+@import "../../../node_modules/bootstrap/scss/root";

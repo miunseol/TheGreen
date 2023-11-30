@@ -1,9 +1,15 @@
 <template>
+  <main>
+    
+  </main>
 </template>
+
 
 <script>
 
 export default {
-  name: "HomeView",
-};
+  name: 'HomeView',
+  components: {
+  }
+}
 </script>
