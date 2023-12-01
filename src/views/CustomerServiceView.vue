@@ -9,13 +9,13 @@
     </div>
     <ul class="nav justify-content-center">
       <li class="nav-item">
-        <router-link class="nav-link " aria-current="page" to="/customerservice">Active</router-link>
+        <router-link class="nav-link text-bg-primary" aria-current="page" to="/customerservice">응대 절차</router-link>
       </li>
       <li class="nav-item">
-        <router-link class="nav-link" to="/customerservice">Link</router-link>
+        <router-link class="nav-link" aria-current="page" to="/customerservice">FAQ</router-link>
       </li>
       <li class="nav-item">
-        <router-link class="nav-link" to="/customerservice">Link</router-link>
+        <router-link class="nav-link" aria-current="page" to="/customerservice">문의 접수</router-link>
       </li>
     </ul>
   </div>
