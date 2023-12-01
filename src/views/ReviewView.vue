@@ -5,20 +5,17 @@
       <div class="Reviewstar">
         <h1><i class="fa-solid fa-star"></i>5.0</h1>
         <p>100%의 구매자가 이 상품을 좋아합니다.</p>
-        <button
-          type="button"
-          class="btn btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target="#exampleModal"
-        >
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
           상품 리뷰 작성
         </button>
       </div>
       <div>
-        <ul class="Reviewbar" >
-          <li v-for="review in review" :key="review">{{ review.title }}</li>
-          <li ><div class="bar"></div></li>
-          <li v-for="review in review" :key="review">{{ review.number }}</li>
+        <ul class="Reviewbar" v-for="(review, i) in review" :key="review">
+          <li style="width:80px; text-align: left;;">{{ review.title }}</li>
+          <li>
+            <div class="bar" :style="{ backgroundColor: i == 0 ? 'black' : 'gray' }"></div>
+          </li>
+          <li>{{ review.number }}</li>
         </ul>
       </div>
     </div>
@@ -26,12 +23,12 @@
   <ReviewModal />
   <div class="Photo">
     <h3>포토&동영상(412)</h3>
-    <div >
+    <div>
       <ul class="PhotoList">
-        <li  v-for="(photo,i) in photo" :key="i"><img :src="photo.path" width="140"></li>
+        <li v-for="(photo, i) in photo" :key="i"><img :src="photo.path" width="140"></li>
       </ul>
     </div>
-    <div class="reviewsearch"> 
+    <div class="reviewsearch">
       <div>
         <p>추천순</p>
         <p>최신순</p>
@@ -40,16 +37,27 @@
       <div class="serch">
         <input type="checkbox">
         <p>포토/동영상먼저보기</p>
-        <input type="text" placeholder="리뷰 키워드 검색">
+        <input class="searchicon" type="text" placeholder="리뷰 키워드 검색">
       </div>
     </div>
   </div>
+  <input
+      class="Seach-input"
+      type="text"
+      placeholder="상품리뷰검색"
+      @input="searchGroup"
+    />
+  <review-list :items="items" />
 </template>
 
 <script>
 import ReviewModal from "@/views/ReviewModal.vue";
+import ReviewList from "@/components/ReviewList.vue";
+import data from "../data/data.json";
+const items = data;
 export default {
-  components: { ReviewModal },
+  components: { ReviewModal, ReviewList },
+
   data() {
     return {
       review: [
@@ -58,36 +66,52 @@ export default {
         { title: "보통이에요", number: 0 },
         { title: "그냥그래요", number: 0 },
         { title: "별로에요", number: 0 },
-        
+
       ],
-      photo:[
-        {path: "https://irecipe.com/web/product/big/202307/31f491c798188d7ac94e9c9d76583953.png"},
-        {path: "https://irecipe.com/web/product/big/202307/31f491c798188d7ac94e9c9d76583953.png"},
-        {path: "https://irecipe.com/web/product/big/202307/31f491c798188d7ac94e9c9d76583953.png"},
-        {path: "https://irecipe.com/web/product/big/202307/31f491c798188d7ac94e9c9d76583953.png"},
-        {path: "https://irecipe.com/web/product/big/202307/31f491c798188d7ac94e9c9d76583953.png"},
-        {path: "https://irecipe.com/web/product/big/202307/31f491c798188d7ac94e9c9d76583953.png"},
-        {path: "https://irecipe.com/web/product/big/202307/31f491c798188d7ac94e9c9d76583953.png"},
-        {path: "https://irecipe.com/web/product/big/202307/31f491c798188d7ac94e9c9d76583953.png"},
+      photo: [
+        { path: "https://irecipe.com/web/product/big/202307/31f491c798188d7ac94e9c9d76583953.png" },
+        { path: "https://irecipe.com/web/product/big/202307/31f491c798188d7ac94e9c9d76583953.png" },
+        { path: "https://irecipe.com/web/product/big/202307/31f491c798188d7ac94e9c9d76583953.png" },
+        { path: "https://irecipe.com/web/product/big/202307/31f491c798188d7ac94e9c9d76583953.png" },
+        { path: "https://irecipe.com/web/product/big/202307/31f491c798188d7ac94e9c9d76583953.png" },
+        { path: "https://irecipe.com/web/product/big/202307/31f491c798188d7ac94e9c9d76583953.png" },
+        { path: "https://irecipe.com/web/product/big/202307/31f491c798188d7ac94e9c9d76583953.png" },
+        { path: "https://irecipe.com/web/product/big/202307/31f491c798188d7ac94e9c9d76583953.png" },
       ],
+      items,
     };
+  },
+  methods: {
+    searchGroup(e) {
+      let value = e.target.value;
+      for (let i = 0; i < items.lenght; i++) {
+        if (this.items[i].review.includes(value) == false) {
+          document.querySelectorAll(".items")[i].style.display = "none";
+        } else {
+          document.querySelectorAll(".items")[i].style.display = "block";
+        }
+      }
+    },
   },
 };
 </script>
 
-<style>
+<style scoped>
 * {
   padding: 0;
   margin: 0;
   border-style: none;
 }
+
 ul {
   list-style: none;
 }
+
 .MainReview {
   width: 1200px;
   margin: auto;
 }
+
 .ProductReview {
   margin: auto;
   font-size: 24px;
@@ -96,11 +120,13 @@ ul {
   text-align: center;
   border-bottom: 1px solid #333;
 }
+
 .ReviewList {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
 .Reviewstar {
   width: 320px;
   height: 208px;
@@ -113,28 +139,34 @@ ul {
   box-sizing: border-box;
   border-right: 1px solid #333;
 }
+
 i {
   font-size: 40px;
   color: #28c852;
   margin-right: 10px;
 }
+
 .Reviewstar h1 {
   font-size: 40px;
 }
-.Reviewstar > p {
+
+.Reviewstar>p {
   font-size: 14px;
   margin-top: 16px;
 }
-.Reviewstar > button {
+
+.Reviewstar>button {
   width: 142px;
   height: 36px;
   background-color: #28c852;
   color: #fff;
   margin: 40px 0 16px;
 }
-.Reviewstar > button:hover {
+
+.Reviewstar>button:hover {
   background-color: #282882;
 }
+
 .Reviewbar {
   display: flex;
   text-align: center;
@@ -148,37 +180,43 @@ i {
   border-radius: 20px;
   margin: 0 10px 0 10px;
 }
-.Photo>h3{
+
+.Photo>h3 {
   text-align: left;
-  width:1200px;
+  width: 1200px;
   /* height:40px; */
-  
-  margin:32px auto 8px auto;
-  border-top:1px solid #c8c8c8;
- /* outline: 1px solid red; */
- padding: 40px 0 16px 0;
+
+  margin: 32px auto 8px auto;
+  border-top: 1px solid #c8c8c8;
+  /* outline: 1px solid red; */
+  padding: 40px 0 16px 0;
 }
-.PhotoList{
-  width:1200px;
-  
-  margin:auto;
+
+.PhotoList {
+  width: 1200px;
+
+  margin: auto;
   display: flex;
 }
 
-.reviewsearch{
+.reviewsearch {
+  width: 1200px;
   display: flex;
   justify-content: space-between;
+  margin: auto;
 }
-.reviewsearch div{
-  display:flex;
-  margin-right:10px;
+
+.reviewsearch div {
+  display: flex;
+  margin-right: 10px;
 }
 
 .reviewsearch p {
-  margin-right:10px;
+  margin-right: 10px;
   cursor: pointer;
 }
 
-
-
+.searchicon {
+  border: 1px solid #c8c8c8;
+}
 </style>

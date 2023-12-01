@@ -1,15 +1,18 @@
 <template>
   <div>
-    <review-header/>
-    <review-footer/>
+    <app-header/>
+    
+    <router-view/>
   </div>
   
 </template>
 <script>
-import ReviewHeader from './components/ReviewHeader.vue';
-import ReviewFooter from './components/ReviewFooter.vue';
+
+import AppHeader from './components/AppHeader.vue';
+
+
 export default {
-  components:{ReviewHeader,ReviewFooter,}
+  components:{AppHeader}
 }
 </script>
 <style>

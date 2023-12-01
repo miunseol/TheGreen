@@ -12,12 +12,12 @@
 </template>
 
 <script>
-import ProductList from "@/components/ProductList.vue";
+import ReviewList from "@/components/ReviewList.vue";
 import data from "../data/data.json";
 const items = data;
 export default {
   name: "SearchPage",
-  components: { ProductList },
+  components: { ReviewList },
   data() {
     return {
       items,
