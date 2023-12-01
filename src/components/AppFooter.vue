@@ -33,7 +33,7 @@
       </section>
     </div>
   </footer>
-  <router-view />
+  
 </template>
 
 <style scoped>
@@ -45,6 +45,7 @@ footer {
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
+  margin: auto;
 }
 footer > div#contents {
   display: flex;

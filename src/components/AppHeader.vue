@@ -34,12 +34,15 @@
 <style scoped>
 header {
   display: flex;
-width: 1920px;
+width: 1200px;
 height: 240px;
-padding: 0px 360px;
-justify-content: center;
-align-items: center;
+padding: 40px 60px 0px 60px;
+flex-direction: column;
+align-items: flex-start;
+gap: 40px;
 flex-shrink: 0;
+margin: auto;
+outline: 1px solid blue;
 }
 header>div#contents {
   display: flex;

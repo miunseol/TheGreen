@@ -30,6 +30,12 @@ a{
   font-weight: 400;
   line-height: normal;
 }
+.body주제B{
+  font-size: 14px;
+  font-style: bold;
+  font-weight: 400;
+  line-height: normal;
+}
 
 .footer중요부분B{
   font-size: 18px;
