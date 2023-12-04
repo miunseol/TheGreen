@@ -37,16 +37,12 @@
       <div class="serch">
         <input type="checkbox">
         <p>포토/동영상먼저보기</p>
-        <input class="searchicon" type="text" placeholder="리뷰 키워드 검색">
+        <input class="Search-input" type="text" placeholder="상품리뷰검색" @input="searchGroup"/>
       </div>
     </div>
+   
   </div>
-  <input
-      class="Seach-input"
-      type="text"
-      placeholder="상품리뷰검색"
-      @input="searchGroup"
-    />
+
   <review-list :items="items" />
 </template>
 
@@ -84,7 +80,7 @@ export default {
   methods: {
     searchGroup(e) {
       let value = e.target.value;
-      for (let i = 0; i < items.lenght; i++) {
+      for (let i = 0; i < items.length; i++) {
         if (this.items[i].review.includes(value) == false) {
           document.querySelectorAll(".items")[i].style.display = "none";
         } else {
@@ -218,5 +214,9 @@ i {
 
 .searchicon {
   border: 1px solid #c8c8c8;
+}
+
+.search-input{
+  outline:1px solid black;
 }
 </style>
