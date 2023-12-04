@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <router-link to="#">
     <img src="../assets/images/product/product1.png" alt="">
     <h4>상품제목</h4>
-  </div>
+  </router-link>
 </template>
 
 <script>

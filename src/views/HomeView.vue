@@ -1,11 +1,12 @@
 <template>
+  <!--각 링크 수정 필요-->
   <div class="home">
     <div class="top-contents">
       <h2 class="head상단메뉴M">베스트</h2>
-      <div class="best-product" :key="i" v-for="(product,i) in products">
+      <router-link to="#" class="best-product" :key="i" v-for="(product,i) in products">
         <img :src="product.path" alt="">
         <p class="body주제B" style="white-space:pre-line">{{ product.product_name }}</p>
-      </div>
+      </router-link>
     </div> <!-- top contents 끝-->
     <div class="subtitle">
       <h3>진행중인 기획전</h3>
@@ -15,7 +16,7 @@
       <div class="left-box">
         <img src="../assets/images/spactial_exhibition/campaign.png" alt="">
       </div>
-      <div class="right-box">
+      <div class="right-box" >
         <product-item/>
         <product-item/>
         <product-item/>
@@ -33,7 +34,7 @@
         <product-item/>
       </div>
     </div><!--bottom-contents-->
-    <div class="campaign">
+    <div class="campaign"><!--하단 기획전-->
       <div class="campaign-box">
         <img src="../assets/images/spactial_exhibition/campaign2.png" alt="">
         <p>
@@ -42,7 +43,7 @@
           미래세대를 위해 우리 함게 도전해 볼까요?
         </p>
       </div>
-      <div class="campaign-box">
+      <div class="campaign-box"> 
         <img src="../assets/images/spactial_exhibition/campaign3.png" alt="">
         <p>
           <b>

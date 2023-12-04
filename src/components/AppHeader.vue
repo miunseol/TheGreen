@@ -12,7 +12,7 @@
     </div>
     <div id="gnb-wrap">
       <ul id="gnb" class="head상단메뉴M">
-        <li><router-link to="/">베스트</router-link></li>
+        <li><router-link to="/category">베스트</router-link></li>
         <li><router-link to="/">기획전</router-link></li>
         <li><router-link to="/">리빙</router-link></li>
         <li><router-link to="/">뷰티</router-link></li>
@@ -28,7 +28,7 @@
     </div>
     </div> 
   </header>
-  <router-view />
+  
 </template>
 
 <style scoped>
