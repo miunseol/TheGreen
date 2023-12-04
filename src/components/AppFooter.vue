@@ -1,6 +1,7 @@
 <template>
-  <footer class="container row py-5 mx-auto">
-    <div class="col-4">
+  <footer class="">
+    <div class="container row py-5 mx-auto">
+      <div class="col-4">
       <h5>The Green</h5>
       <p>
         921, Jungang-daero, Danwon-gu, Ansan-si, Gyeonggi-do, Republic of Korea
@@ -33,6 +34,8 @@
         <li><a href="">Twitter</a></li>
       </ul>
     </div>
+    </div>
+
   </footer>
 </template>
 
