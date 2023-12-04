@@ -3,7 +3,7 @@
     <div class="col d-flex justify-content-between align-items-center">
       <router-link to="/"><img src="../assets/logo.png" alt="" /></router-link>
       <ul class="list-unstyled d-flex align-middle gap-3">
-        <li><router-link class="head-menu-norm" to="/">로그인</router-link></li>
+        <li><router-link class="head-menu-norm" to="/login">로그인</router-link></li>
         <li><router-link class="head-menu-norm" to="/">마이페이지</router-link></li>
         <li><router-link class="head-menu-norm" to="/">주문조회</router-link></li>
         <li><router-link class="head-menu-norm" to="/customerservice">고객센터</router-link></li>
