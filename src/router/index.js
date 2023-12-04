@@ -1,12 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import CustomerServiceView from '../views/CustomerServiceView.vue'
+import ProductBoard from '@/views/ProductBoard.vue'
 
 const routes = [
   {
     path: '/',
     name: 'home',
     component: HomeView
+  },
+  {
+    path: '/category',
+    name: 'category',
+    component: ProductBoard
   },
   {
     path: '/customerservice',
