@@ -1,11 +1,14 @@
 <template>
   <div>
-    <div class="category best"><!--AppHeader에서 값 가져 옵시다,,-->
+    <div class="category"><!--AppHeader에서 값 가져 옵시다,,-->
       <h2>{{ category[0] }}</h2><!--AppHeader에서 값 가져 옵시다,,--> 
-      <div class="category-filter">
+    </div><!--category-->
+    <div class="category"><!--AppHeader에서 값 가져 옵시다,,-->
+      <h2>{{ category[i] }}</h2><!--AppHeader에서 값 가져 옵시다,,--> 
+    </div><!--category-->
+    <div class="category-filter">
 
       </div>
-    </div><!--category-->
   </div>
 </template>
 

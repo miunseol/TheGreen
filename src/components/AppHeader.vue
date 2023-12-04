@@ -11,7 +11,7 @@
     </div>
     <div class="col d-flex justify-content-between align-items-center gap-3">
       <ul id="shopMenu" class="list-unstyled d-flex align-items-center gap-3">
-        <li><router-link to="/">베스트</router-link></li>
+        <li><router-link to="/category">베스트</router-link></li>
         <li><router-link to="/">기획전</router-link></li>
         <li><router-link to="/">리빙</router-link></li>
         <li><router-link to="/">뷰티</router-link></li>
