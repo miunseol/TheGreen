@@ -1,4 +1,5 @@
 <template>
+  <detailed-page/>
   <div class="MainReview">
     <h4 class="ProductReview">상품리뷰(233)</h4>
     <div class="ReviewList">
@@ -47,12 +48,13 @@
 </template>
 
 <script>
+import DetailedPage from "./DetailedPage.vue";
 import ReviewModal from "@/views/ReviewModal.vue";
 import ReviewList from "@/components/ReviewList.vue";
 import data from "../data/data.json";
 const items = data;
 export default {
-  components: { ReviewModal, ReviewList },
+  components: { ReviewModal, ReviewList ,DetailedPage},
 
   data() {
     return {
