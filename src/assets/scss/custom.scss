@@ -5,12 +5,15 @@
 //색상 설정
 
 $primary : #24A841;
+$secondary : #051809;
+$secondary-emphasis : #0B5C1D;
+$info : #EBF3E8;
 
 $theme-colors:(
   "primary" : $primary,
-  "secondary" : #051809,
+  "secondary" : $secondary,
   "success":    red,
-  "info":       red,
+  "info":       $info,
   "warning":    red,
   "danger":     red,
   "light":      red,
@@ -31,15 +34,16 @@ $theme-colors:(
 }
 a{
   text-decoration: none;
-  color: text-secondary;
 }
 ul,ol,li{
   list-style: none;
   margin-bottom: 0;
 }
 li>a{
-  padding: 20px 4px;
-  height: 100%;
+  color: $secondary;
+}
+li:hover>a{
+  color: $secondary-emphasis;
 }
 
 
@@ -47,13 +51,43 @@ li>a{
 
 //폰트 설정
 .head-top-md{
-  font-weight:bold;
+  font-weight: 600;
   font-size:20px;
+}
+
+.head-top-menu-md{
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .head-menu-norm{
   font-weight:normal;
   font-size:12px;
+}
+
+.body-menu-md{
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.body-title-norm{
+  font-weight: normal;
+  font-size: 18px;
+}
+
+.body-content-norm{
+  font-weight: normal;
+  font-size: 16px;
+}
+.body-detail-menu-16b{
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+}
+.body-detail-content-lg{
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 300;
 }
 
 // Required

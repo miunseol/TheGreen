@@ -1,6 +1,7 @@
 <template>
-  <header class="container row d-flex flex-column align-items-center mx-auto">
-    <div class="col d-flex justify-content-between align-items-center">
+  <header>
+    <div class="row container d-flex flex-column justify-contents-center align-items-center mx-auto">
+      <div class="col d-flex justify-content-between align-items-center">
       <router-link to="/"><img src="../assets/logo.png" alt="" /></router-link>
       <ul class="list-unstyled d-flex align-middle gap-3">
         <li><router-link class="head-menu-norm" to="/">로그인</router-link></li>
@@ -33,12 +34,18 @@
         /></a>
       </div>
     </div>
+    </div>
+
   </header>
 </template>
 
 <style scoped>
 ul#shopMenu > li {
   line-height: 68px;
+}
+li>a{
+  padding: 20px 4px;
+  height: 100%;
 }
 header {
   background-color: #f8f9fa;
