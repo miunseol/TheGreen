@@ -1,6 +1,6 @@
 <template>
   <detailed-page/>
-  <div class="MainReview">
+  <div id="review" class="MainReview">
     <h4 class="ProductReview">상품리뷰(233)</h4>
     <div class="ReviewList">
       <div class="Reviewstar">
@@ -42,8 +42,7 @@
       </div>
     </div>
   </div>
-
-  <review-list :items="items" />
+  <ReviewList  :items="items" />
 </template>
 
 <script>
@@ -107,6 +106,7 @@ ul {
 .MainReview {
   width: 1200px;
   margin: auto;
+  margin-top:80px;
 }
 
 .ProductReview {
