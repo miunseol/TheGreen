@@ -40,7 +40,6 @@
         <input class="Search-input" type="text" placeholder="상품리뷰검색" @input="searchGroup"/>
       </div>
     </div>
-   
   </div>
 
   <review-list :items="items" />

@@ -17,5 +17,8 @@ export default {
 </script>
 
 <style>
-@import "@/assets/scss/custom.css";
+@import "@/assets/scss/custom copy.css";
+body{
+  overflow-y: scroll;
+}
 </style>

@@ -1,7 +1,6 @@
 <template>
   <div>
     <review-view />
-
   </div>
 </template>
 
@@ -9,9 +8,8 @@
 import ReviewView from "@/views/ReviewView.vue";
 
 export default {
-  components: { ReviewView,  },
+  components: { ReviewView },
 };
 </script>
 
-<style>
-</style>
+<style></style>

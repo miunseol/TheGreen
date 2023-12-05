@@ -195,23 +195,6 @@ li:hover > a {
   --bs-btn-disabled-border-color: #24a841;
 }
 
-.btn-primary-dark {
-  --bs-btn-color: #fff;
-  --bs-btn-bg: #28853D;
-  --bs-btn-border-color: #28853D;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #227134;
-  --bs-btn-hover-border-color: #206a31;
-  --bs-btn-focus-shadow-rgb: 72, 151, 90;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #206a31;
-  --bs-btn-active-border-color: #1e642e;
-  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #fff;
-  --bs-btn-disabled-bg: #28853D;
-  --bs-btn-disabled-border-color: #28853D;
-}
-
 .btn-secondary {
   --bs-btn-color: #fff;
   --bs-btn-bg: #051809;
@@ -348,23 +331,6 @@ li:hover > a {
   --bs-gradient: none;
 }
 
-.btn-outline-primary-dark {
-  --bs-btn-color: #28853D;
-  --bs-btn-border-color: #28853D;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #28853D;
-  --bs-btn-hover-border-color: #28853D;
-  --bs-btn-focus-shadow-rgb: 40, 133, 61;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #28853D;
-  --bs-btn-active-border-color: #28853D;
-  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #28853D;
-  --bs-btn-disabled-bg: transparent;
-  --bs-btn-disabled-border-color: #28853D;
-  --bs-gradient: none;
-}
-
 .btn-outline-secondary {
   --bs-btn-color: #051809;
   --bs-btn-border-color: #051809;
@@ -400,8 +366,8 @@ li:hover > a {
 }
 
 .btn-outline-info {
-  --bs-btn-color: #ebf3e8;
-  --bs-btn-border-color: #ebf3e8;
+  --bs-btn-color: #000;
+  --bs-btn-border-color: var(--bs-dark);
   --bs-btn-hover-color: #000;
   --bs-btn-hover-bg: #ebf3e8;
   --bs-btn-hover-border-color: #ebf3e8;
@@ -546,7 +512,7 @@ li:hover > a {
   --bs-gray-800: #343a40;
   --bs-gray-900: #212529;
   --bs-primary: #24a841;
-  --bs-primary-dark: #28853D;
+  --bs-primary-dark : #28853D;
   --bs-secondary: #051809;
   --bs-success: #27DF17;
   --bs-info: #ebf3e8;
@@ -555,7 +521,6 @@ li:hover > a {
   --bs-light: #F5F5F5;
   --bs-dark: #505246;
   --bs-primary-rgb: 36, 168, 65;
-  --bs-primary-dark-rgb: 40, 133, 61;
   --bs-secondary-rgb: 5, 24, 9;
   --bs-success-rgb: 39, 223, 23;
   --bs-info-rgb: 235, 243, 232;

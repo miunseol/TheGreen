@@ -29,9 +29,9 @@
             ><img src="../assets/search.png" alt=""
           /></a>
         </div>
-        <a id="cartIcon" href=""
+        <router-link id="cartIcon" to="/shoppingcart"
           ><img src="../assets/shoppingCart.png" alt=""
-        /></a>
+        /></router-link>
       </div>
     </div>
     </div>

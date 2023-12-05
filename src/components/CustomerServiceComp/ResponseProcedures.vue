@@ -1,8 +1,8 @@
 <template>
-  <div class="main">
+  <div class="container">
     <div class="steps text-center align-middle d-flex flex-column align-items-center">
       <p class="align-baseline head-top-menu-md" style="margin:0">고객 문의 해결 프로세스</p>
-      <div class="imgSection d-flex justify-content-center align-items-center">
+      <div class="imgSection d-flex justify-content-center align-items-center gap-3">
         <div class="stepBox text-bg-info d-flex flex-column align-items-center">
           <div class="imgBox">
             <img src="@/assets/image/counselling.png" />
@@ -46,7 +46,7 @@
             <th scope="col" class="body-content-norm">피해 유형</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="table-group-divider">
           <tr>
             <th scope="row" class="body-menu-md">아동 용품</th>
             <td class="body-menu-md">
@@ -98,6 +98,7 @@
 export default {};
 </script>
 <style scoped>
+
 div.steps{
   box-sizing: border-box;
   padding: 40px 0px;

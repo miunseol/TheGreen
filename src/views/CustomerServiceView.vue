@@ -14,19 +14,19 @@
       @click="activeBtn"
     >
       <button
-        class="btn active btn-primary d-flex justify-content-center align-items-center"
+        class="btn active d-flex justify-content-center align-items-center"
         aria-current="page"
         @click="activeMenu = 'procedure'"
         >응대 절차</button
       >
       <button
-        class="btn btn-primary d-flex justify-content-center align-items-center"
+        class="btn d-flex justify-content-center align-items-center"
         aria-current="page"
         @click="activeMenu = 'faq'"
         >FAQ</button
       >
       <button
-        class="btn btn-primary d-flex justify-content-center align-items-center"
+        class="btn d-flex justify-content-center align-items-center"
         aria-current="page"
         @click="activeMenu = 'inquiry'"
         >문의 접수</button
