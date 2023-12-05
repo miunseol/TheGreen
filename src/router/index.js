@@ -4,12 +4,20 @@ import CustomerServiceView from '../views/CustomerServiceView.vue'
 import ReviewView from '../views/ReviewView.vue'
 import DetailedPage from '../views/DetailedPage.vue'
 import ShoppingCart from '../views/ShoppingCartView.vue'
+import ProductBoard from '@/views/ProductBoard.vue'
 
 const routes = [
   {
     path: '/',
     name: 'home',
     component: HomeView
+  },
+  {
+    path: '/category/:category',
+
+    name: 'product',
+    props: true,
+    component: ProductBoard
   },
   {
     path: '/customerservice',
