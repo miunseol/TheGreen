@@ -3,7 +3,6 @@ import HomeView from '../views/HomeView.vue'
 import CustomerServiceView from '../views/CustomerServiceView.vue'
 import ReviewView from '../views/ReviewView.vue'
 import ShoppingCart from '../views/ShoppingCartView.vue'
-
 const routes = [
   {
     path: '/',
@@ -25,6 +24,7 @@ const routes = [
     name: 'ShoppingCart',
     component: ShoppingCart
   }
+  
 ]
 
 const router = createRouter({
