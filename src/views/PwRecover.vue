@@ -1,13 +1,7 @@
 <template>
   <div class="container">
     <div class="textGroup">
-      <h2>아이디 찾기</h2>
-      <p>
-        · 가입하신 방법에 따라 아이디 찾기가 가능합니다.
-        <br />
-        · 법인사업자 회원 또는 외국인 회원의 경우 법인명과 법인번호 또는 이름과
-        등록번호를 입력해 주세요.
-      </p>
+      <h2>비밀번호 찾기</h2>
     </div>
     <div class="memberType">
       <p>회원유형</p>
@@ -38,6 +32,10 @@
       </div>
     </div>
     <div class="input-group mb-3">
+      <p>아이디</p>
+      <input type="text" class="form-control rounded" aria-label="Userid" />
+    </div>
+    <div class="input-group mb-3">
       <p>이름</p>
       <input type="text" class="form-control rounded" aria-label="Username" />
     </div>
@@ -48,7 +46,7 @@
           type="tel"
           id="phone"
           name="phone"
-          placeholder="예: 010-123-4567"
+          placeholder="Ex) 010-123-4567"
           pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}"
           required
         />
@@ -60,8 +58,9 @@
   </div>
 </template>
 
-
-<script></script>
+<script>
+export default {};
+</script>
 
 <style scoped>
 .container {
@@ -79,7 +78,7 @@
 
 .textGroup > h2 {
   color: var(--051809, #051809);
-  margin-bottom: 16px;
+  margin-bottom: 40px;
   font-family: Noto Sans;
   font-size: 25px;
   font-style: normal;
@@ -87,14 +86,6 @@
   line-height: 20px;
 }
 
-.textGroup > p {
-  color: var(--051809, #051809);
-  margin-bottom: 32px;
-  font-family: Noto Sans;
-  font-size: 10px;
-  font-style: normal;
-  line-height: 20px;
-}
 .memberType {
   display: flex;
   justify-content: space-between;
@@ -164,7 +155,7 @@
 .callbox {
   display: flex;
   width: 480px;
-  height: 60px;
+  height: 40px;
   margin: auto;
   align-items: center;
   justify-content: space-between;

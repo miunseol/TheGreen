@@ -82,10 +82,15 @@
             <label class="form-check-label jujang" for="flexCheckDefault">
               아이디저장
             </label>
-            <a href="" class="membership">회원가입 | </a>
-            <router-link class="head-menu-norm" to="/recover">아이디찾기 | </router-link>
-            <a href="" class="findid"></a>
-            <a href="" class="passwords">비밀번호 찾기</a>
+            <router-link class="head-menu-norm" to="/joinmember"
+              >회원가입 | 
+            </router-link>
+            <router-link class="head-menu-norm" to="/idrecover"
+              >아이디찾기 |
+            </router-link>
+            <router-link class="head-menu-norm" to="/pwrecover"
+              >비밀번호 찾기
+            </router-link>
           </div>
         </div>
       </div>
@@ -93,7 +98,7 @@
         <h3><a href="">간편 로그인</a></h3>
       </div>
       <div class="easylogin1">
-        <a href="">비회원 주문배송조회></a>
+        <a href="">비회원 주문배송조회</a>
       </div>
     </div>
   </main>
@@ -281,7 +286,6 @@ export default {
   line-height: normal;
   margin-top: 20px;
 }
-
 
 .easylogin1 {
   display: flex;
