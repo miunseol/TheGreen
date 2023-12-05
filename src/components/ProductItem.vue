@@ -1,25 +1,33 @@
 <template>
-  <div class="product-item">
-    <router-link to="#">
-      <img src="../assets/images/product/product1.png" alt="">
-      <h4>상품제목</h4>
-    </router-link>
+  <div>
+    <div class="product-item" v-for="product in product" :key="product">
+      <router-link to="#">
+        <img :src="product.path" alt="#">
+        <h4>{{product.name}}</h4>
+      </router-link>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-
+  props: ["product"]
 }
 </script>
 
 <style scoped>
+img{
+  display: block;
+}
   .product-item{
-    width: 290px;
+    /* width: 290px; */
+    width: 30%;
     height: 280px;
+    /* margin-right: 15px; */
   }
   .product-item img{
     width: 290px;
+    /* width: 100%; */
     height: 230px;
   }
   .product-item h4{
