@@ -2,7 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import CustomerServiceView from '../views/CustomerServiceView.vue'
 import ReviewView from '../views/ReviewView.vue'
+import DetailedPage from '../views/DetailedPage.vue'
 import ShoppingCart from '../views/ShoppingCartView.vue'
+
 const routes = [
   {
     path: '/',
@@ -20,11 +22,15 @@ const routes = [
     component: ReviewView
   },
   {
-    path:'/shoppingcart',
-    name: 'ShoppingCart',
-    component: ShoppingCart
-  }
-  
+    path: '/detailed',
+    name: 'detailed',
+    component: DetailedPage
+  },
+  {
+  path:'/shoppingcart',
+  name: 'ShoppingCart',
+  component: ShoppingCart
+}
 ]
 
 const router = createRouter({
