@@ -17,7 +17,7 @@
         <img src="../assets/images/spactial_exhibition/campaign.png" alt="">
       </div>
       <div class="right-box" >
-        <product-item/>
+        <product-item :product="product" class="event-product"/>
         <product-item/>
         <product-item/>
         <product-item/>
@@ -29,9 +29,7 @@
     </div>
     <div class="bottom-contents">
       <div class="product-list">
-        <product-item/>
-        <product-item/>
-        <product-item/>
+        <product-thumb/>
       </div>
     </div><!--bottom-contents-->
     <div class="campaign"><!--하단 기획전-->
@@ -71,7 +69,6 @@
       </div>
     </div>
 
-    <product-thumb></product-thumb>
   </div>
 </template>
 
@@ -79,6 +76,9 @@
 
 import ProductItem from '../components/ProductItem.vue'
 import ProductThumb from '@/components/ProductThumb.vue';
+import data from '@/assets/data/data.json'
+
+const product = data;
 export default {
   name: 'HomeView',
   components: {
@@ -87,7 +87,7 @@ export default {
   },
   data(){
     return{
-      
+      product,
       // 상품 배열
       products:[
         {
@@ -126,7 +126,7 @@ export default {
 
 <style scoped>
 img{
-  /* display: block; */
+  
 }
 .top-contents{
   display: flex;
@@ -182,7 +182,23 @@ img{
   flex-wrap: wrap;
 
 }
-.bottom-contents{
+.event-product{
+  display: flex;
+  width: 780px;
+  height: 640px;
+  overflow: hidden;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  
+}
+.event-product ::v-deep(.product-item){
+  width: 380px;
+  height: 310px;
+  margin-bottom: 10px;
+}
+.event-product ::v-deep(.product-item img){
+  width: 380px;
+}.bottom-contents{
   /* display: flex; */
   width: 1200px;
   padding-bottom: 0px;

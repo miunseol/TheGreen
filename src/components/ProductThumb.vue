@@ -1,8 +1,18 @@
 <template>
-  <div>
-    <img src="#" alt="#">
-    <p>상품명</p>
-  </div>
+  <section>
+    <div>
+      <img src="#" alt="#">
+      <p>상품명</p>
+    </div>
+    <div>
+      <img src="#" alt="#">
+      <p>상품명</p>
+    </div>
+    <div>
+      <img src="#" alt="#">
+      <p>상품명</p>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -13,18 +23,26 @@ export default {
 
 <style scoped>
   div{
-    width: 100%;
+    width: 380px;
     height: 100%;
+  }
+  section{
+    outline:1px solid red;
+    width: 1200px;
+    display: flex;
+    justify-content: space-between;
   }
   img{
     display: block;
-    width: 290px;
-    height: 230px;
+    width: 380px;
+    height: 315px;
     background-color: #333;
   }
   p{
-    width: 290px;
+    width: 380px;
     height: 45px;
     background-color: #eaeaea;
+    text-align: center;
+    padding: 8px;
   }
 </style>
