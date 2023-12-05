@@ -26,7 +26,7 @@
         <li>사용후기</li>
       </ul>
     </div>
-    
+    <hr>
     
   </div>
 </template>
@@ -74,11 +74,10 @@ export default {
     font-weight: bold;
     color: #051809;
     text-align: center;
-    margin-top: 13px;
-    margin-bottom: 40px;
+    margin: 13px  auto 40px;
+    width: 1200px;
   }
   .product-filter{
-    /* width: 890px; */
     width: 1200px;
     height: 44px;
     display: flex;
@@ -92,6 +91,7 @@ export default {
     /* outline: 5px solid blue; */
     width: 1200px;
     height: 44px;
+    padding: 0 120px;
   }
   .product-filter > .sub-category > li{
     width: 148px;
@@ -120,6 +120,9 @@ export default {
     /* margin-left: 15px; */
     box-sizing: border-box;
     height: 20px;
+  }
+  hr{
+    margin-top: 75px;
   }
 
 </style>
