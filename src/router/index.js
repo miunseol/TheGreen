@@ -5,7 +5,7 @@ import LoginView from "../views/LoginView.vue";
 import IdRecover from "../views/IdRecover.vue";
 import PwRecover from "../views/PwRecover.vue";
 import JoinMember from "../views/JoinMember.vue";
-import AppMyShop from "../views/AppMyShop.vue";
+import AppMyShop from "../components/AppMyShop.vue";
 
 const routes = [
   {
