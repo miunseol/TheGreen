@@ -4,6 +4,8 @@
     <product-category :category="category"/>
     <product-item class="product-item" :product="product" />
     <!-- <div>{{product[1].name}}</div> -->
+    <!-- <app-paging :pageSetting="pageDataSetting(total, limit, block, this.page)"
+      @paging="pagingMethod"/> -->
   </div>
 </template>
 
@@ -11,11 +13,14 @@
 import ProductCategory from '@/components/ProductCategory.vue';
 import ProductItem from '@/components/ProductItem.vue';
 import data from '@/assets/data/data.json';
+// import AppPaging from '@/components/AppPaging.vue';
 
 const product = data;
 
 export default {
-  components: { ProductCategory, ProductItem },
+  components: { ProductCategory, ProductItem,
+    // AppPaging
+   },
    props:{
     category:{
       type : String,
@@ -25,8 +30,11 @@ export default {
   data(){
     return{
       product,
+      
     }
-  }
+  },
+  
+  
 }
 </script>
 
@@ -34,11 +42,12 @@ export default {
   .product-board{
     margin: auto;
     width: 1200px;
-    height: 1200px;
+    /* height: 1200px; */
+    height: 1800px;
   }
   .product-item{
     width: 910px;
-    height: 1200px;
+    height: 1115px;
     outline:1px solid red;
     display: flex;
     justify-content: space-between;

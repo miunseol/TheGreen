@@ -16,6 +16,10 @@ export default {
 </script>
 
 <style scoped>
+*{
+  overflow: hidden;
+  
+}
 img{
   display: block;
 }
