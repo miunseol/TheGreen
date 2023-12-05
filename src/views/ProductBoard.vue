@@ -1,7 +1,7 @@
 <template>
   <div>
-    <product-category/>
-    
+    <!-- <div>{{$route.params.category}}</div> -->
+    <product-category :category="category"/>
   </div>
 </template>
 
@@ -11,7 +11,12 @@ import ProductCategory from '@/components/ProductCategory.vue';
 
 export default {
   components: { ProductCategory },
-  
+   props:{
+    category:{
+      type : String,
+      required: true,
+    }
+  },
 }
 </script>
 

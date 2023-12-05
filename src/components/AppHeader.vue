@@ -10,13 +10,13 @@
         <li><router-link class="head-menu-norm" to="/customerservice">고객센터</router-link></li>
       </ul>
     </div>
+    <!-- 링크 쿼리 -->
     <div class="col d-flex justify-content-between align-items-center gap-3">
       <ul id="shopMenu" class="list-unstyled d-flex align-items-center gap-3">
-        <li><router-link class="head-top-md" to="/">베스트</router-link></li>
-        <li><router-link class="head-top-md" to="/">기획전</router-link></li>
-        <li><router-link class="head-top-md" to="/">리빙</router-link></li>
-        <li><router-link class="head-top-md" to="/">뷰티</router-link></li>
-        <li><router-link class="head-top-md" to="/">패션</router-link></li>
+        <li v-for="nav in navigations" :key="nav.name" class="head-top-md"><router-link :to="{name: 'product', params: {category: nav.name}}">
+          <span>{{ nav.name }}</span>
+        </router-link></li>
+        
       </ul>
       <div class="d-flex align-items-center gap-2">
         <div class="input-group">
@@ -38,7 +38,27 @@
 
   </header>
 </template>
-
+<script>
+  
+  export default {
+    
+    data(){
+      return{
+        // category:[
+        //   '0','1','2','3','4'
+        // ],
+        navigations:[
+          {name : 'BEST'},
+          {name : '기획전'},
+          {name : '리빙상품'},
+          {name : '뷰티상품'},
+          {name : '패션상품'},
+          
+        ],
+      }
+    }
+  }
+</script>
 <style scoped>
 ul#shopMenu > li {
   line-height: 68px;
