@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<!-- saved from url=(0229)https://push.snapfit.co.kr/frame/detail?ff=Ntk5TYxwoxyNB4rszFqU384wx3odFlqzFU58mLvQDQXt4Yqh9YyhvDxXQE3BPQOrHX2XavAemXXnlGCsQ58VjptK1TP%2BAv%2BGW791Ua3xdm8W%2F2qJzkwGEm%2FcURKVQZQ5rH58jBh6%2F%2Bzso7cjBImH2YoiATjlwX5lQyTB5szmCTw%3D -->
+<html oncontextmenu="return false" ondragstart="return false" onselectstart="return false" lang="kr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>스냅푸시</title>
+    <script src="./jquery.min.js.다운로드"></script>
+    <script src="./jquery.bxslider.min.js.다운로드"></script>
+    <link rel="stylesheet" type="text/css" href="./detail_common.css">
+    <link rel="stylesheet" type="text/css" href="./layout_custom.css">
+    <link rel="stylesheet" type="text/css" href="./detail_1.css">
+    <script type="text/javascript" src="./layout_recommend.js.다운로드"></script>
+    <script type="text/javascript" src="./layout_common.js.다운로드"></script>
+    <!--<base target="_parent">--><base href="." target="_parent">
+<style>
+    #snappush-close.snappush-close, .snappush-close, .template-close {
+        display: none;
+    }
+</style><script type="text/javascript">
+
+SpmLayoutDetail.prototype.contentLoad = function() {
+    if(this.itemImageLoadcnt >= this.itemLength){
+       this.setFrameStyle();
+    }
+}
+SpmLayoutDetail.prototype.checkLoadIamge = function(event) {
+    this.itemImageLoadcnt++;
+    $(event.currentTarget).unbind("load");
+    $(event.currentTarget).unbind("error");
+    if(event.type == "error"){
+        $(event.currentTarget).attr('src',$(event.currentTarget).attr('origin'));
+        $(event.currentTarget).bind('error', function(e){
+            $(this).unbind("error");
+            $(this).closest('.item').attr('style','display:none !important;');
+            // var errorNode = $(event.currentTarget).closest('.item').get(0);
+            // errorNode.parentNode.removeChild(errorNode);
+        });
+    }
+    this.setFrameStyle();
+}
+SpmLayoutDetail.prototype.setFrameStyle = function() {
+    var _detailSelf = this;
+    if (this.widnowActiveChecker()) {
+        setTimeout(function(){
+            $('body').css('width','100%');
+            $('body').css('height','100%');
+            // $('.snappush-contents').css('height', $('.snappush-contents').prop('scrollHeight') + 'px');
+            // $('.snappush-contents').css('max-height', $('.snappush-contents').prop('scrollHeight') + 'px');
+            // $('.snappush-contents').css('overflow', 'hidden');
+            $('body').css('visibility','visible');
+            //console.log($('body').innerHeight());
+            window.parent.postMessage(JSON.stringify({e: 'spm_setFrameStyle', params: { data :{
+                height: $('body').innerHeight(),
+                frameid: 'vTWXyPmg',
+            }}}), '*');
+        }, 500);
+
+        return;
+    }
+    setTimeout(function(){
+        _detailSelf.setFrameStyle();
+    }, 200);
+}
+
+SpmLayoutDetail.prototype.getItemUrl = function(itemID, snaprData) {
+    var url = this.protocol+'://'+location.hostname+'/personal/referrer?item_id='+itemID+'&shop_url='+this.storeDomain;
+    if(this.storeType == 'cafe24' || this.storeType == 'cafeapi') {
+        url += '/product/1/'+itemID+'/category/' + ((snaprData.item_category_id[itemID]) ? snaprData.item_category_id[itemID] : '11');
+    } else {
+        url += encodeURIComponent('/shop/shopdetail.html?branduid='+itemID+'&xcode=000&mcode=000');
+    }
+    return url + '&' + this.l + '=' + this[this.l];
+}
+
+SpmLayoutDetail.prototype.goToLink = function () {
+    var _detailSelf = detailLayoutInstance;
+    var linkurl = $(this).data('link');
+    if(linkurl == ''){
+        return false;
+    }
+    _detailSelf.insertPushLog(function() {
+        $.ajax({
+            type:'post',
+            dataType : 'json',
+            url: '/Spm_Mgr/localLink',
+            data: _detailSelf.l + '=' + _detailSelf[_detailSelf.l] + '&logID=' + _detailSelf.logID,
+            success:function(res){},
+            error:function(e,i,j){}
+        }).done(function(){
+            window.parent.postMessage(JSON.stringify({e: 'spm_redirect_url', params: {url:linkurl }}), '*');
+        });
+    });
+}
+
+SpmLayoutDetail.prototype.issueCoupon = function() {
+    var _detailSelf = detailLayoutInstance;
+    if(_detailSelf.userID !== "u"){
+        alert('로그인 해주세요.');
+        return false;
+    }
+    if($(this).data('couponid') == ""){
+        return false;
+    }
+    _detailSelf.pushloading();
+    var cparams = {};
+    cparams[_detailSelf.l] = _detailSelf[_detailSelf.l];
+    cparams['coupon'] = $(this).data('couponid');
+    _detailSelf.insertPushLog(function() {
+        $.ajax({
+            type:'post',
+            dataType : 'json',
+            url: '/Spm_Mgr/issueCoupon',
+            data: cparams,
+            beforeSend:function(){
+            },
+            success:function(res){
+                alert(res.msg);
+            },
+            error:function(e,i,j){
+                alert('쿠폰발급 도중 에러가 발생하였습니다.');
+                _detailSelf.pushloadingEnd();
+            }
+        }).done(function(){
+            _detailSelf.pushloadingEnd();
+        });
+    });
+}
+
+SpmLayoutDetail.prototype.goToItemLink = function() {
+    var _detailSelf = detailLayoutInstance;
+    var link = $(this).attr('link');
+
+    _detailSelf.insertPushLog(function(logid) {
+        window.parent.postMessage(JSON.stringify({e: 'spm_redirect_url', params: {url: link +'&return_log_id='+ _detailSelf.logID , }}), '*');
+    });
+}
+
+SpmLayoutDetail.prototype.insertPushLog = function(detailCallback)
+{
+    var _detailSelf = this;
+    var iparams = {};
+    iparams[this.l] = this[this.l];
+    iparams['channel'] = this.pushType;
+    iparams['event'] = this.layoutInfo.event;
+    iparams['platform'] = this.platform;
+    if (_detailSelf.logID != 0) {
+        detailCallback();
+        return;
+    }
+    $.ajax({
+        type:'post',
+        dataType : 'json',
+        url: '/Spm_Mgr/insertPushLog',
+        data: iparams,
+        success:function(res){
+            if(res != 0){
+                _detailSelf.logID = res;
+                detailCallback();
+            } else {
+                console.log('log error');
+            }
+        },
+        error:function(e,m,a){
+            console.log('log error');
+        }
+    }).done(function(){
+    });
+}
+
+
+document.addEventListener('touchstart', {});
+var detailLayoutInstance = new SpmLayoutDetail();
+var recommendInstance = new recommendDetailLayout(detailLayoutInstance);
+detailLayoutInstance.init({
+    'l' : 'pp',
+    'pp' : 'Ntk5TYxwoxyNB4rszFqU3%2FAX2VvXhVhB3gV5h%2BsP9rEDRg2SqrNbsrArbNZARbynq%2BBKfMEWlfENea7Sn6pxWA%3D%3D',
+    'storeDomain' : 'irecipe.com',
+    'platform' : 'pc',
+    'pushType' : 'frame',
+    'protocol' : (1 == 1) ? 'https' : 'http',
+    'logID' : 0,
+    'layoutInfo' : {"event":"1582","alarm_style_pc":"{\"template_name\":\"\uae30\ubcf8 \ud15c\ud50c\ub9bf\",\"position\":{\"x\":{\"type\":\"left\",\"value\":\"0\",\"method\":\"%\",\"center\":\"true\"},\"y\":{\"type\":\"top\",\"value\":\"0\",\"method\":\"%\",\"center\":\"true\"}},\"background\":{\"boolean\":\"true\",\"value\":\"0,0,0,0.5\",\"scrollEvent\":{\"type\":\"fixed\"}},\"animation\":{\"type\":\"none\",\"method\":\"animate-slow\"},\"close\":{\"type\":\"image\",\"size\":{\"width\":\"30\",\"width_size_type\":\"px\",\"height\":\"30\",\"height_size_type\":\"px\"},\"vertical\":{\"type\":\"top\",\"value\":\"10\",\"vertical_size_type\":\"px\"},\"horizontal\":{\"type\":\"right\",\"value\":\"10\",\"horizontal_size_type\":\"px\"},\"border\":{\"radius\":\"0\",\"radius_size_type\":\"px\",\"color\":\"rgba(255, 255, 255, 0)\",\"size\":\"0\",\"border_size_type\":\"px\"},\"background\":\"rgba(255, 255, 255, 0)\",\"detail\":{\"img\":\"https:\/\/cdn.snapfit.co.kr\/image\/template\/default_close_btn.png\",\"svg\":\"close_1.svg\",\"svg_color\":\"\",\"text\":\"close\",\"text_color\":\"#000\",\"text_size\":\"11\"}},\"logo\":{\"img\":\"push_logo2.png\",\"vertical\":{\"type\":\"bottom\",\"value\":\"5\",\"vertical_size_type\":\"px\"},\"horizontal\":{\"type\":\"right\",\"value\":\"1\",\"horizontal_size_type\":\"px\"}}}","detail_template_pc":"1","layout_template_pc":"0","template_pc_content":"","location":null,"template_type":null,"style":null},
+    'css' : {
+        'custom' : '//cdn.snapfit.co.kr/stores/irecipe/push_design/1582/layout_custom.css?1701326379',
+    },
+    'storeType' : 'cafe24',
+    'userID' : '',
+});
+var layoutRecommendlist = [];
+
+</script></head>
+
+
+<body id="push-frame-body" class="push-frame-body-pc" style="visibility: visible; width: 100%; height: 100%;">
+    <div id="snappush-alarm-detail">
+    <div id="snappush-icon"></div>
+    <div class="snappush-header"></div>
+    <div class="close-top">
+            </div>
+    <div class="snappush-contents" id="snappush-contents">
+        <span class="message-noskin"><link rel="stylesheet" type="text/css" href="./noskin.css"><div id="div-message-box"><div class="message box-1590"><span><p><a class="push-messge-link" title="" data-link="http://pf.kakao.com/_kxcknxb"><img src="./플친프레임_수정.png" alt="" width="100%"></a></p></span></div></div></span>    </div>
+    <div class="close-bottom">
+            </div>
+    <div class="snappush-footer"></div>
+    <div id="snappush-close" class="snappush-close" style="position:absolute;overflow: hidden;z-index:2; cursor: pointer;width:30px;height:30px;top:10px;bottom: auto;right:10px;left: auto;border-radius:0px;border: 0px solid rgba(255, 255, 255, 0);background:rgba(255, 255, 255, 0);"><img src="./default_close_btn.png" style="width:100%;height:100%;display:block;margin:0"></div>        <div id="detail_loading" style="display:none;">
+        <img src="./push_detail_loading.gif" style="">
+    </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    recommendInstance.getFramePushItem(layoutRecommendlist);
+    $(document).on('click','.btn-getting-coupon', detailLayoutInstance.issueCoupon);
+    $(document).on('click','a.push-messge-link', detailLayoutInstance.goToLink);
+    $(document).on('click','a.spm-item-link', detailLayoutInstance.goToItemLink);
+});
+</script>
+</body></html>

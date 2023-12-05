@@ -1,0 +1,154 @@
+var recommendDetailLayout = function (detail) {
+
+    this._detail = detail;
+    this.targetUrl = function (item_id, snaprData) {
+        return this._detail.getItemUrl(item_id, snaprData);
+    }
+
+    this.getPushItemV2 = function (recommendData) {
+        if (this._detail.isDirectPopup()) {
+            if (this._detail.itemLength == 0 && recommendData.length > 0) {
+                this._detail.layoutStatus = false;
+            }
+        }
+
+        if (this._detail.itemLength == 0) {
+            this._detail.contentLoad();
+            return;
+        }
+        $.each(recommendData, function (key, data) {
+            data.callback(data.snapr);
+        });
+        this._detail.reloadSlider();
+    }
+
+    this.getFramePushItem = function (recommendData) {
+        if (this._detail.itemLength == 0) {
+            this._detail.contentLoad();
+            return;
+        }
+        $.each(recommendData, function (key, data) {
+            data.callback(data.snapr);
+        });
+        if (this._detail.layoutInfo.location != 'frame_recommend2') {
+            this._detail.reloadSlider();
+        }
+    }
+
+    this.setImgProtocol = function (path) {
+        if (!path) {
+            return '';
+        }
+
+        if (path.substr(0, 2) != '//') {
+            return path.replace('https', this._detail.protocol);
+        } else {
+            return this._detail.protocol + ':' + path;
+        }
+    }
+
+    this.setProductTitle = function (type, product) {
+        switch (type) {
+            case 'product_name':
+                return product.title;
+            case 'model_name':
+                return (product.model_name === undefined || product.model_name == '') ? product.title : product.model_name;
+            case 'brand_name':
+                return (product.brand_name === undefined || product.brand_name == '') ? product.title : product.brand_name;
+        }
+        return product.title;
+    }
+
+    this.setProductPrice = function (msale, type, product) {
+        product.sale_price = (msale == 1 && this._detail.platform == 'mobile'
+            && this.priceEquals(product.sale_price, product.m_sale_price))
+            ? product.m_sale_price : product.sale_price;
+        switch (type) {
+            //소비자가 make only
+            case 'fake':
+                return (this.isNotNullPrice(product.fake_price))
+                    ? { 'fake_price': 0, 'price': product.fake_price }
+                    : { 'fake_price': 0, 'price': product.one_price };
+                break;
+            //판매가
+            case 'one':
+                return { 'fake_price': 0, 'price': product.one_price };
+            //판매가 (소비자가 노출) make only
+            case 'one_fake':
+                if (this.isNotNullPrice(product.fake_price) && this.priceEquals(product.fake_price, product.one_price)) {
+                    return { 'fake_price': product.fake_price, 'price': product.one_price };
+                }
+                break;
+            //세일가
+            case 'only_price':
+                if (this.isNotNullPrice(product.sale_price) && this.priceEquals(product.one_price, product.sale_price)) {
+                    return { 'fake_price': 0, 'price': product.sale_price };
+                }
+                break;
+            //세일가 (판매가 노출)
+            case 'price':
+                if (this._detail.storeType == 'makeshop') {
+                    if (this._detail.storeDomain.indexOf('liphop') !== -1) {   // 립합 예외 처리
+                        product.price = product.one_price;
+                    }
+                    if (this.isNotNullPrice(product.sale_price)) {
+                        val_fake_price = parseInt(product.fake_price);
+                        val_sale_price = parseInt(product.sale_price);
+                        val_price = parseInt(product.price);
+                        val_one_price = parseInt(product.one_price);
+                        if (val_one_price < val_sale_price) product.price = product.one_price;
+
+                        if ((val_one_price < val_fake_price || val_sale_price < val_one_price) && this._detail.storeDomain.indexOf('ilovej') === -1) {
+                            if (val_sale_price < val_one_price && val_sale_price > 0) {
+                                return { 'fake_price': product.one_price, 'price': val_price };
+                            } else if (val_one_price < val_fake_price) {
+                                return { 'fake_price': product.fake_price, 'price': val_price };
+                            }
+                        }
+                    }
+                    return { 'fake_price': 0, 'price': val_price };
+                } else {
+                    if (product.sale_price) {
+                        val_sale_price = parseInt(product.sale_price);
+                        val_price = parseInt(product.price);
+                        val_one_price = parseInt(product.one_price);
+                        if (val_one_price < val_sale_price) product.price = product.one_price;
+
+                        if (val_one_price > val_sale_price && val_sale_price > 0 && this._detail.storeDomain.indexOf('ilovej') === -1) {
+                            return { 'fake_price': product.one_price, 'price': product.price };
+                        }
+                    }
+                    return { 'fake_price': 0, 'price': product.price };
+                }
+                break;
+            //세일가 (소비자가 노출) make only
+            case 'sale_fake':
+                if (this.isNotNullPrice(product.sale_price) && this.isNotNullPrice(product.fake_price)) {
+                    if (this.priceEquals(product.fake_price, product.sale_price)) {
+                        return { 'fake_price': product.fake_price, 'price': product.sale_price };
+                    } else {
+                        return { 'fake_price': 0, 'price': product.sale_price };
+                    }
+                }
+                break;
+            default:
+                return {
+                    'fake_price': 0,
+                    'price': product.one_price,
+                };
+        }
+        return {
+            'fake_price': 0,
+            'price': product.one_price,
+        };
+    }
+
+    this.priceEquals = function (bigPrice, smallPrice) {
+        return (Number(bigPrice) > Number(smallPrice)) ? true : false;
+    }
+
+    this.isNotNullPrice = function (price) {
+        return (price != null && price != 0) ? true : false;
+    }
+
+};

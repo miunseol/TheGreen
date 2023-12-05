@@ -1,0 +1,493 @@
+var SpmLayoutDetail = function SpmLayoutDetail (){
+    
+    this.l = '';
+    /** push종류 local, back, channel별 */
+    this.pushType = '';   
+    /** logID 쿠폰 발급, 클릭전환 통계 등등 */
+    this.logID  = 0;
+    /** 스토어 http, https */
+    this.protocol = 'http';   
+    /** 이전 url 정보 */
+    this.referrer = true;
+    /** css파일 inner, outer, custom */
+    this.css = [];
+    /** 레이아웃 정보 */
+    this.layoutInfo = [];
+    /** 상점 도메인 */
+    this.storeDomain = '';
+    /** 가장 최근 방문 상품 */
+    this.latelyItem = '';
+    /** cafe24, makeshop */
+    this.storeType = '';
+    /** 접속 userID */
+    this.userID = '';    
+    /** 상품추천 total item list */
+    this.itemLength = 0;
+    /** 상품추천 이미지 load total item list */
+    this.itemImageLoadcnt = 0;
+    /** 0 - 바로팝업 */
+    this.direct = '';
+    /** pc, mobile */
+    this.platform = '';
+    this.showBoolean = false;
+    this.layoutStatus = true;
+    /** 상품추천 슬라이드 배열 */
+    this.slider = [];
+    this.popupSlider = "";
+    /** user agent iphone */
+    this.isIphone = (navigator.userAgent.toLowerCase().indexOf('iphone os') === -1) ? true : false ;
+    /** 레이아웃 페이지 or 아이프레임 */
+    this.pageType = 'iframe';
+
+    /** 리사이즈 콜횟수 */
+    this.resizeCalls = 0;
+
+    var _layoutSelf = this;
+
+    
+    this.init = function(pushInfo)
+    {        
+        this.l = pushInfo.l;
+        this[pushInfo.l] = pushInfo[pushInfo.l];
+        this.storeType = pushInfo.storeType;
+        this.pushType = pushInfo.pushType;
+        this.storeDomain = pushInfo.storeDomain;        
+        this.logID = pushInfo.logID;
+        this.protocol = pushInfo.protocol;        
+        this.referrer = pushInfo.referrer;
+        this.layoutInfo = pushInfo.layoutInfo;
+        this.relationItem = pushInfo.relationItem;
+        this.css = pushInfo.css;        
+        this.userID =  pushInfo.userID;
+        this.direct = pushInfo.direct;
+        this.platform = pushInfo.platform;        
+        this.pageType = pushInfo.pageType;
+    }
+
+    this.detailHistoryAction = function()
+    {
+        // history.replaceState({'pushdetail':false}, "", "#");
+        // history.pushState(null, "", "#");
+        // window.onpopstate = function(event) {
+        //     if(event.state != null && event.state.pushdetail == false){
+        //         $(".snappush-close, .spm-close").click();
+        //     }
+        // }
+    }
+
+    /*
+    * showBoolean - insertpushLog 함수 체크 
+    * layoutStatus - 바로팝업 상품추천 체크(상품추천은 존재:o item_list:x ) 
+    * 로컬 팝업 이면서 바로 팝업 
+    */  
+    this.showValidtaion = function()
+    {
+        return (this.showBoolean === false && this.layoutStatus === true);
+    }
+
+    /*
+    * 로컬 팝업 이면서 바로 팝업 
+    */    
+    this.isDirectPopup = function()
+    {
+        return (this.direct === "0" && this.pushType === "local");
+    }
+
+    this.showDetailContents = function() {
+        var cmd = (_layoutSelf.pushType === 'back') ? 'spm_returnPush_show' : 'spm_show_detail';
+        window.parent.postMessage(JSON.stringify({
+            e: cmd, params: {
+                data: {
+                    //todo push->dev push.snapfit.co.kr 변경
+                    outtercss: _layoutSelf.css.outer,
+                    customcss: _layoutSelf.css.custom,
+                    templateStyle: (_layoutSelf.layoutInfo.style)
+                        ? JSON.parse(_layoutSelf.layoutInfo.style)
+                        : JSON.parse('{"min-width":"320px","width":"85%","max-width":"560px"}'),
+                    pushType: _layoutSelf.pushType,
+                    layoutId: _layoutSelf.layoutInfo.event
+                }
+            }
+        }), '*');
+    }
+
+    this.getBannerStyle = function () {
+        var style = JSON.parse(_layoutSelf.layoutInfo['alarm_style_' + this.platform]);
+        if (style == null) {
+            style = {
+                "template_name":"기본 템플릿",
+                "position":{
+                    "x": (_layoutSelf.pushType === 'back' && _layoutSelf.platform === 'pc') 
+                        ? {"type":"right","value":"1","method":"px","center":"false"} 
+                        : {"type":"left","value":"0","method":"%","center":"true"},
+                    "y": (_layoutSelf.pushType === 'back' && _layoutSelf.platform === 'pc') 
+                        ? {"type":"top","value":"0","method":"%","center":"false"} 
+                        : {"type":"top","value":"0","method":"%","center":"true"}
+                },
+                "background": { 
+                    "boolean":"true",
+                    "value":"0,0,0,0.5",
+                    "scrollEvent":"fixed",
+                },
+                "animation": { 
+                    "type":"none",
+                    "method":"animate-slow", 
+                }
+            };
+        }
+        //var width = $('body').prop('scrollWidth');
+        //var height = $('body').prop('scrollHeight');
+        var width = $('body').innerWidth();
+        var height = $('body').innerHeight();
+        var x = style.position.x;
+        var y = style.position.y;
+        var method = 'px';
+        if(style.width){
+            if(style.width.value){
+                width = style.width.value;
+                method = style.width.method;
+            }    
+        }
+        var xPosition = {
+            type : (x.center == 'true') ? 'left' : x.type ,                
+            value : (x.center == 'true') 
+                    ? 'calc(50%' + ((x.type == "left") ? ' + ' : ' - ' ) + x.value + x.method  + ' - ' + Math.round(width / 2) + 'px)' 
+                    : x.value + x.method
+        };
+        var yPosition = {
+            type : (y.center == 'true') ? 'top' : y.type ,                
+            value : (y.center == 'true') 
+                    ? 'calc(50%' + ((y.type == "top") ? ' + ' : ' - ' ) + y.value + y.method  + ' - ' + Math.round(height / 2) + 'px)' 
+                    : y.value + y.method
+        };
+        this.pushlogoSetting(style.background);
+        return {
+            width: width + method,
+            height: height + method,
+            xPosition: xPosition,
+            yPosition: yPosition,
+            background : style.background,
+            animation : style.animation,
+        }
+    }
+
+    this.widnowActiveChecker = (function(){
+        var stateKey, eventKey, keys = {
+            hidden: "visibilitychange",
+            webkitHidden: "webkitvisibilitychange",
+            mozHidden: "mozvisibilitychange",
+            msHidden: "msvisibilitychange"
+        };
+        for (stateKey in keys) {
+            if (stateKey in document) {
+                eventKey = keys[stateKey];
+                break;
+            }
+        }
+        return function(c) {
+            if (c) document.addEventListener(eventKey, c);
+            return !document[stateKey];
+        }
+    })();
+
+    this.pushloading = function()
+    {
+        $('#detail_loading').css('display','block');
+    }
+
+    this.pushloadingEnd = function()
+    {
+        $('#detail_loading').css('display','none');
+    }
+    
+    //탭메뉴 슬라이더 리로드
+    this.reloadSlider = function()
+    {
+        if(this.slider.length < 1)
+            return;
+
+        $.each(this.slider,function(key,obj){
+            obj.reloadSlider();
+        });
+    }
+
+    this.pushlogoSetting = function(backgroundStyle)
+    {
+        if(backgroundStyle.boolean == "true"){
+            $('.push-logo').css('visibility','hidden');
+        }
+    }
+    
+    $(document).on("click",".snappush-close, .spm-close", function(event){
+        event.stopPropagation();
+        event.preventDefault();
+        if($('#todayView').prop('checked')){
+            var cmd = (_layoutSelf.pushType === 'back') ? 'spm_returnPush_hide_today' : 'spm_today_hide_banner' ;
+        } else {
+            var cmd = (_layoutSelf.pushType === 'back') ? 'spm_returnPush_hide' : 'spm_hide_banner' ;
+        }        
+        window.parent.postMessage(JSON.stringify({e: cmd, params: {data: {}}}), '*');
+        window.close();
+    });
+
+    $(document).on("click", ".spm-today-close, .snappush-today-close", function() {
+        var cmd = (_layoutSelf.pushType === 'back') ? 'spm_returnPush_hide_today' : 'spm_today_hide_banner';
+        window.parent.postMessage(JSON.stringify({e: cmd, params: {data: { pushType:_layoutSelf.pushType, layoutEvent: _layoutSelf.layoutInfo.event }}}), '*');
+    });
+
+    this.snap_spm_detail_receiveMessage = function (event)
+    {
+        try {
+            var data = event.data;
+            if (!data) {
+                return;
+            }
+            var values = JSON.parse(data);
+            if (values.e == 'spm_set_backpush_action') {
+                _layoutSelf.insertPushLog();
+            } else if (values.e == 'spm_banner_style_loader') {
+                _layoutSelf.setBannerStyle();
+            }
+        }catch (e){
+
+        }
+    }
+
+    this.backActionChecker = function()
+    {
+        return (window.performance && window.performance.navigation.type == 2);
+    }
+
+    this.pushBannerHide = function()
+    {
+        window.parent.postMessage(JSON.stringify({e: 'spm_returnPush_hide', params: {data: {}}}), '*');
+        window.parent.postMessage(JSON.stringify({e: 'spm_hide_banner', params: {data: {}}}), '*');
+    }
+
+};
+
+
+SpmLayoutDetail.prototype.contentLoad = function() {
+    if(this.itemImageLoadcnt >= this.itemLength){
+        this.pushloadingEnd();
+        if(this.logID == "0" && this.isDirectPopup() && this.showValidtaion()){ 
+            this.insertPushLog();//로컬 바로팝업                
+        } else if (this.pushType !== "back" && this.showValidtaion()) {
+            this.showDetailContents();
+        }
+    }
+}
+
+SpmLayoutDetail.prototype.checkLoadIamge = function(event) {
+    this.itemImageLoadcnt++;
+    $(event.currentTarget).unbind("load");
+    $(event.currentTarget).unbind("error");
+    if(event.type == "error"){
+        $(event.currentTarget).attr('src',$(event.currentTarget).attr('origin'));
+        $(event.currentTarget).bind('error', function(e){
+            $(this).unbind("error");
+            $(this).closest('.item').attr('style','display:none !important;');
+            // var errorNode = $(event.currentTarget).closest('.item').get(0);
+            // errorNode.parentNode.removeChild(errorNode);
+        });
+    }
+    this.contentLoad();
+}
+
+SpmLayoutDetail.prototype.setBannerStyle = function() {   
+    var cmd = (this.pushType === 'back') ? 'spm_returnPush_show' : 'spm_show_detail';
+    var _detailSelf = this;
+    var _layoutSelf = detailLayoutInstance;
+    if(this.widnowActiveChecker() && $('body').prop('scrollWidth') != 0 && $('body').prop('scrollHeight') > 30){
+        if(this.popupSlider) {
+            this.popupSlider.update();
+        } else {
+            this.reloadSlider();
+        }
+        var timeLimit = (this.isDirectPopup() && this.pushType !== 'back') ? 200 : 0 ;
+        setTimeout(function(){
+            $('body').css('visibility','visible');
+            $('body').css('width','100%');
+            $('body').css('height','100%');
+            $('body').css('max-width','100%');
+            $('body').css('max-height','100%');
+            var maxHig = 0;
+            $('.snappush-contents img').each(function(){
+                var obj = $(this);
+                if(JSON.stringify(obj.offset()) == JSON.stringify({top:0,left:0})){
+	                maxHig = (maxHig < obj.height()) ? obj.height() : maxHig;
+                }
+            });
+            maxHig = Math.max($('.snappush-contents').innerHeight(), maxHig,127.5);
+            $('.snappush-contents').css({'height':'','max-height':''});
+            if(!$('.snappush-contents').data('prev-height')){
+                $('.snappush-contents').data('prev-height',maxHig);
+                if(_layoutSelf.resizeCalls == 0){
+                    setTimeout(function(){
+                        _detailSelf.setBannerStyle();
+                    },100);
+                    _layoutSelf.resizeCalls = 1;
+                    console.log('resize caller');
+                }
+            }else if($('.snappush-contents').data('prev-height') != maxHig){
+                $('.snappush-contents').data('prev-height',maxHig);
+                if(_layoutSelf.resizeCalls == 0){
+                    setTimeout(function(){
+                        _detailSelf.setBannerStyle();
+                    },100);
+                    _layoutSelf.resizeCalls = 1;
+                    console.log('resize caller');
+                }
+            }
+            $('.snappush-contents').css('height', maxHig + 'px');
+            $('.snappush-contents').css('max-height', maxHig  + 'px');
+            window.parent.postMessage(JSON.stringify({e: cmd + '_background', params: {data: {
+                bannerStyle: _detailSelf.getBannerStyle(),
+            }}}), '*');
+        }, timeLimit);            
+    } else {
+        setTimeout(function(){
+            _detailSelf.setBannerStyle();
+        }, 200);
+    }
+}
+
+SpmLayoutDetail.prototype.getItemUrl = function(itemID, snaprData) {
+    var url = this.protocol+'://'+location.hostname+'/personal/referrer?item_id='+itemID+'&log_id='+this.logID+'&shop_url='+this.storeDomain;
+    if(this.storeType == 'cafe24' || this.storeType == 'cafeapi') {
+        url += '/product/1/'+itemID+'/category/' + ((snaprData.item_category_id[itemID]) ? snaprData.item_category_id[itemID] : '11');
+    } else {
+        url += encodeURIComponent('/shop/shopdetail.html?branduid='+itemID+'&xcode=000&mcode=000');
+    }
+    return url + '&' + this.l + '=' + this[this.l]; 
+}
+
+SpmLayoutDetail.prototype.insertPushLog = function() {
+    var _detailSelf = this;
+    if(this.layoutStatus != true){
+        console.log('layout_status_false');
+        this.showBoolean = true;
+        return false;
+    }
+
+    this.showBoolean = true;        
+    if(this.backActionChecker()){
+        this.pushBannerHide();
+        return false;
+    }
+
+    params = {};
+    params[this.l] = this[this.l];
+    params['channel'] = this.pushType;
+    params['event'] = this.layoutInfo.event;
+    params['platform'] = this.platform;
+
+    $.ajax({
+        type:'post',
+        dataType : 'json',
+        url: '/Spm_Mgr/insertPushLog',
+        data: params,
+        success:function(res){
+            if(res != 0){
+                _detailSelf.logID = res;
+                $('.item a').each(function(){
+                    var link = $(this).attr('link');
+                    $(this).attr('link',link + '&return_log_id='+res);                            
+                });
+            } else {
+                _detailSelf.pushBannerHide();
+            }
+        },
+        error:function(e,m,a){
+            _detailSelf.pushBannerHide();
+        }
+    }).done(function(){
+        _detailSelf.showDetailContents();
+    });
+}
+
+SpmLayoutDetail.prototype.issueCoupon = function(){
+        var _layoutSelf = detailLayoutInstance;
+        if(_layoutSelf.userID !== "u"){
+            window.parent.postMessage(JSON.stringify({e: 'spm_message_dialog', params: {msg:'로그인 해주세요.', dialog_type:'alert'}}), '*');
+            return false;
+        }
+        _layoutSelf.pushloading();
+        var couponClose = ($(this).attr('after-action') == 1) ? 'true' : 'false' ;
+        
+        params = {};
+        params[_layoutSelf.l] = _layoutSelf[_layoutSelf.l];
+        params['coupon'] = $(this).data('couponid');
+
+        $.ajax({
+            type:'post',
+            dataType : 'json',
+            url: '/Spm_Mgr/issueCoupon',
+            data: params,
+            beforeSend:function(){
+            },
+            success:function(res){
+                window.parent.postMessage(JSON.stringify({e: 'spm_message_dialog', params: {msg:res.msg, dialog_type:'alert'}}), '*');
+                if(couponClose == 'true'){
+                    $(".snappush-close, .spm-close").click();
+                }
+            },
+            error:function(e,i,j){
+                window.parent.postMessage(JSON.stringify({e: 'spm_message_dialog', params: {msg:'쿠폰발급 도중 에러가 발생하였습니다.', dialog_type:'alert'}}), '*');
+                _layoutSelf.pushloadingEnd();
+    // if ($(this).data('couponid') == "") {
+    //     return false;
+    // }
+            }
+        }).done(function(){
+            _layoutSelf.pushloadingEnd();
+        });       
+
+}
+
+SpmLayoutDetail.prototype.goToLink = function() {
+    var _layoutSelf = detailLayoutInstance;
+    var linkurl = $(this).data('link');
+    if(linkurl == ''){
+        return false;
+    }
+
+    var params = {};
+    params[_layoutSelf.l] = _layoutSelf[_layoutSelf.l];
+    params['logID'] = _layoutSelf.logID;
+    $.ajax({
+        type:'post',
+        dataType : 'json',
+        url: '/Spm_Mgr/localLink',
+        data: params,
+        success:function(res){
+            console.log(res);
+        },
+        error:function(e,i,j){}
+    }).done(function(){
+        if(_layoutSelf.pageType == 'page'){
+            var pushTag = document.createElement('a');
+            pushTag.href = _layoutSelf.protocol+'://'+location.hostname+'/Spm_Mgr/editorLink?' 
+                            + _layoutSelf.l + '=' + _layoutSelf[_layoutSelf.l] + '&' 
+                            + 'log_id=' + _layoutSelf.logID 
+                            + '&linkurl='+encodeURIComponent(linkurl);
+            pushTag.target = '_parent';
+            document.body.appendChild(pushTag);
+            pushTag.click();
+        } else {
+            window.parent.postMessage(JSON.stringify({e: 'spm_redirect_url', params: {url:linkurl }}), '*');
+        }
+    });
+}
+SpmLayoutDetail.prototype.goToItemLink = function() {
+    var _layoutSelf = detailLayoutInstance;
+    if(_layoutSelf.pageType == 'page'){
+        var pushTag = document.createElement('a');
+        pushTag.href = $(this).attr('link');
+        pushTag.target = '_parent';
+        document.body.appendChild(pushTag);
+        pushTag.click();
+    } else {
+        window.parent.postMessage(JSON.stringify({e: 'spm_redirect_url', params: {url:$(this).attr('link'), }}), '*');
+    }
+}

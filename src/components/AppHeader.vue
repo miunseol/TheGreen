@@ -15,8 +15,8 @@
         <li><router-link class="head-top-md" to="/">베스트</router-link></li>
         <li><router-link class="head-top-md" to="/">기획전</router-link></li>
         <li><router-link class="head-top-md" to="/">리빙</router-link></li>
-        <li><router-link class="head-top-md" to="/">뷰티</router-link></li>
-        <li><router-link class="head-top-md" to="/">패션</router-link></li>
+        <li><router-link class="head-top-md" to="/detailed">뷰티</router-link></li>
+        <li><router-link class="head-top-md" to="/review">패션</router-link></li>
       </ul>
       <div class="d-flex align-items-center gap-2">
         <div class="input-group">

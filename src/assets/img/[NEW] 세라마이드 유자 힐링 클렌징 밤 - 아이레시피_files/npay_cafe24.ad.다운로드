@@ -1,0 +1,1 @@
+var adn_pay_selectors = {"price":["#totalPrice em","#totalPrice strong.price","table span.txt23","strong.total",".total .price",".total strong em","#option_box1_price .ec-front-product-item-price","#totalPriceText"],"button":["#npay_btn","[id^=\"NPAY_BUY_LINK_IDNC_ID\"]"],"layer":["#opt_layer_background"],"iframe":["#productOptionIframe"]};
