@@ -1,7 +1,7 @@
 [
     {
       "name" : "[그린을 고르다] 아침부터 상쾌한 바디로션",
-      "path" : "require(@/assets/product_detail.png)",
+      "path" : "https://github.com/miunseol/TheGreen/blob/d41b4c4f87cce3e6bd52a93a6d773c3f8418019a/src/assets/product_detail.png?raw=true",
       "price" : 19200
     },
     {
