@@ -40,6 +40,11 @@ const routes = [
     name: 'theorder',
     component: TheOrderform
   },
+  {
+    path: '/shoppingcart',
+    name: 'shoppingcart',
+    component: ShoppingCart
+  },
   
 ]
 

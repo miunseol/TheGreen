@@ -64,10 +64,18 @@
         <div class="order-eventtitle">
 
           <div class="delivery-checkbox">
-            <input type="checkbox" name="samedelivery" id="samedelivery">
-            <label id="samedelivery">기존 번호와 동일</label>
-            <input type="checkbox" name="newdelivery" id="newdelivery">
-            <label id="newdelivery">새로운 배송지</label>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+              <label class="form-check-label" for="flexRadioDefault2">
+                주문자 번호와 동일
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+              <label class="form-check-label" for="flexRadioDefault2">
+                새로운 배송지
+              </label>
+            </div>
           </div>
           <div class="order-event">
             <span class="d-flex">주문자</span>
@@ -123,13 +131,185 @@
 
       </div>
     </div>
-    <div class="order-product"></div>
-    <div class="order-sale"></div>
-    <div class="order-"></div>
-    <div class="order-payif"></div>
-    <div class="payment-method"></div>
-    <div class="all-conditions"></div>
 
+
+
+
+
+    <div class="background-w">
+      <div class="order-product">
+        <div class="order-if">
+          <h3>주문상품</h3>
+          <button><i class="fa-solid fa-chevron-up"></i></button>
+        </div>
+        <div class="order-imgflex">
+          <div><img src="https://irecipe.com/web/product/big/202312/e9a74467a95a075c5dcc08ef06dbe08e.png"
+              style="width:100px;"></div>
+          <div class="order-imgcol">
+            <div class="order-imgbtw">
+              <span>제품명이 표출됩니다</span>
+              <span><i class="fa-solid fa-x"></i></span>
+            </div>
+            <span>수량 1개</span>
+            <span>19,200원</span>
+
+          </div>
+
+        </div>
+
+      </div>
+      <div class="delivery-product">
+        <span>배송비</span>
+        <span>0원(무료)</span>
+      </div>
+    </div>
+
+
+    <div class="background-w">
+      <div class="order-sale">
+        <div class="order-if">
+          <h3>할인/부가결제</h3>
+          <button><i class="fa-solid fa-chevron-up"></i></button>
+        </div>
+        <div class="sale-flex">
+          <span>할인코드</span>
+          <input type="text" id="sale">
+          <label type=button id="sale">적용</label>
+
+
+        </div>
+
+      </div>
+      <div class="delivery-product">
+        <span>적용금액</span>
+        <span>- 0원</span>
+      </div>
+    </div>
+    <div class="background-w">
+      <div class="order-payproduct">
+        <div class="order-if">
+          <h3>할인/부가결제</h3>
+          <button><i class="fa-solid fa-chevron-up"></i></button>
+        </div>
+        <div class="order-payflex">
+          <div>
+            <div class="order-payall">
+              <span>주문상품</span>
+              <span>19,200원</span>
+            </div>
+            <div class="order-payall">
+              <span>배송비</span>
+              <span>+0원</span>
+            </div>
+            <div class="order-payall">
+              <span>할인/부가결제</span>
+              <span>-0원</span>
+            </div>
+            <div class="order-inputpay">
+              <span>적용금액</span>
+              <span>- 0원</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="background-w">
+      <div class="order-payif">
+        <div class="order-if">
+          <h3>할인/부가결제</h3>
+          <button><i class="fa-solid fa-chevron-up"></i></button>
+        </div>
+        <div class="paypadding">
+          <div class="payallflex">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+              <label class="form-check-label" for="flexRadioDefault2">
+                카드 결제
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+              <label class="form-check-label" for="flexRadioDefault2">
+                에스크로(실시간 계좌이체)
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+              <label class="form-check-label" for="flexRadioDefault2">
+                휴대폰 결제
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+              <label class="form-check-label" for="flexRadioDefault2">
+                무통장 입금
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+              <label class="form-check-label" for="flexRadioDefault2">
+                카카오 페이
+              </label>
+            </div>
+          </div>
+          <span class="paytext">소액 결제의 경우 PG사 정책에 따라 결제 금액 제한이 있을 수 았습니다.</span>
+        </div>
+      </div>
+    </div>
+    <div class="background-w">
+      <div class="all-conditions">
+        <div class="form-check" id="checkonly">
+          <div>
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled">
+            <label class="form-check-label" for="flexCheckCheckedDisabled">
+              모든 약관 동의
+            </label>
+          </div>
+        </div>
+        <div>
+          <div class="form-check" id="checkonly">
+            <div>
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled">
+              <label class="form-check-label" for="flexCheckCheckedDisabled">
+                [필수] 쇼핑몰 이용약관 동의
+              </label>
+            </div>
+            <span><i class="fa-solid fa-caret-right"></i></span>
+          </div>
+        </div>
+        <div>
+          <div class="form-check" id="checkonly">
+            <div>
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled">
+              <label class="form-check-label" for="flexCheckCheckedDisabled">
+                [필수] 개인정보 수집 및 이용 동의
+              </label>
+            </div>
+            <span><i class="fa-solid fa-caret-right"></i></span>
+          </div>
+        </div>
+        <div>
+          <div class="form-check" id="checkonly">
+            <div>
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled">
+              <label class="form-check-label" for="flexCheckCheckedDisabled">
+                [필수] 청약철회방침 동의
+              </label>
+            </div>
+            <span><i class="fa-solid fa-caret-right"></i></span>
+          </div>
+        </div>
+      </div>
+      <div class="form-span" id="checkonly">
+        <span>주문 내용을 확인했으며 약관에 동의합니다.</span>
+      </div>
+    </div>
+    <div>
+      <button class="allbutton" type="button">19,200원 결제하기</button>
+    </div>
+    <span class="button-text">-무이자할부가 적용되지 않은 상품과 무이자할부가 가능한 상품을 동시에 구매할 경우 전체 주문 상품 금액에 대해 무이자할부가 적용되지 않습니다. 무이자할부를 원하시는 경우 장<br>바구니에서 무이자할부
+      상품만 선택하여 주문하여 주시기 바랍니다.
+      <br><br>-최소 결제 가능 금액은 결제금액에서 배송비를 제외한 금액입니다.</span>
   </div>
 </template>
 
@@ -146,7 +326,7 @@ export default {
           "kakao.com",
         ],
       tes: ["010", "031", "070", "011",],
-      deliverymessage: ["(선택 입력)","집앞에 놓고가주세요", "잘부탁드립니다", "꼼꼼히 포장해주세요"]
+      deliverymessage: ["(선택 입력)", "집앞에 놓고가주세요", "잘부탁드립니다", "꼼꼼히 포장해주세요"]
     };
   },
   methods: {
@@ -205,9 +385,9 @@ export default {
   padding-bottom: 60px;
   flex-direction: column;
   align-items: center;
-  gap: 60px;
+  gap: 20px;
   background-color: #c8c8c8;
-  margin:auto;
+  margin: auto;
 }
 
 .background-w {
@@ -351,16 +531,209 @@ export default {
 
 .delivery-checkbox {
   display: flex;
+  width:900px;
+  height:36px;
+  padding:4px 0 ;
+  box-sizing: border-box;
+  
+  align-items: center;
+  gap: 20px;
+  
+  margin:8px 12px;
+ 
+
+}
+
+.delivery-checkbox input {
+  width:20px;
+  height:20px;
+}
+
+.delivery-checkbox label{
+  padding:7px 0;
+  box-sizing: border-box;
+}
+
+.order-product {
+
+  border-radius: 4px;
+}
+
+.order-imgflex {
+  display: flex;
+  padding: 16px 20px;
+  box-sizing: border-box;
+  gap: 20px;
+}
+
+.order-imgflex>div>img {
+  border: 1px solid #c8c8c8;
+}
+
+
+.order-imgcol {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.order-imgbtw {
+  width: 730px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.delivery-product {
+  width: 860px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0px 20px 16px 20px;
+  background-color: #c8c8c8;
+
+
+}
+
+
+
+.sale-flex {
+  width: 860px;
+  height: 36px;
+  margin: 16px 20px 12px 20px;
+  display: flex;
   align-items: flex-start;
   gap: 20px;
   align-self: stretch;
-  margin:16px 0 12px 0;
- 
 }
 
-.delivery-checkbox input{
-  border-radius: 50px;
+.sale-flex span {
+  font-size: 14px;
+  padding: 4px 0;
+  align-items: center;
 }
+
+.sale-flex input {
+  border: 1px solid #c8c8c8;
+
+}
+
+.sale-flex label {
+  display: flex;
+  padding: 0px 10px;
+  box-sizing: border-box;
+  height: 24px;
+  align-items: center;
+  background-color: #838883;
+  justify-content: center;
+  border-radius: 4px;
+  ;
+  cursor: pointer;
+
+}
+
+.order-payflex {
+
+  padding: 16px 20px;
+  box-sizing: border-box;
+}
+
+.order-payall {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #838883;
+  padding: 8px 0;
+}
+
+.order-inputpay {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  font-size: 16px;
+
+  
+  background-color: #c8c8c8;
+}
+
+.paypadding {
+  
+  padding: 16px 20px;
+
+}
+
+.payallflex {
+ 
+  display: flex;
+  
+  gap:20px;
+  font-size: 14px;
+  color: #051809;
+}
+
+.form-check-input {
+  color: #24a841;
+
+}
+
+.paytext {
+  font-size: 12px;
+  color: #838880;
+}
+
+.all-conditions {
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+
+}
+
+#checkonly{
+  width: 900px;
+  border-bottom: 1px solid #c8c8c8;
+  font-size: 14px;
+  padding: 8px 20px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+
+
+
+}
+#checkonly>div {
+  margin-left: 20px;
+}
+
+.form-span {
+  width: 900px;
+
+  font-size: 14px;
+  padding: 8px 20px;
+  box-sizing: border-box;
+
+}
+
+.allbutton {
+  width: 900px;
+
+  height: 72px;
+  padding: 0 40px;
+  background-color: #28c852;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 20px;
+}
+
+.button-text{
+  width:900px;
+  margin:auto;
+  font-size:12px;
+  color:#838880;
+}
+
 </style>
 
 

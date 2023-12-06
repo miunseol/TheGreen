@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="product-item" v-for="product in product" :key="product">
-      <router-link to="#">
+      <router-link to="/review">
         <img :src="product.path" alt="#">
         <h4>{{product.name}}</h4>
       </router-link>
