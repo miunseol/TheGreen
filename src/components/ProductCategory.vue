@@ -8,7 +8,7 @@
     </h2>
     <div v-show="category!=='BEST'" class="product-filter">   
       <ul class="sub-category"><!--for문으로 제어 예정-->
-        <li>전체상품</li>
+        <li style="background-color: #24A841;">전체상품</li>
         <li>주방용품</li>
         <li>세탁용품</li>
         <li>욕실용품</li>

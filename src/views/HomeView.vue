@@ -154,7 +154,7 @@ export default {
   align-items: center;
   gap: 430px;
   outline: 1px solid black;
-  margin: auto;
+  margin: 15px auto;
 }
 .mid-contents{
   display: flex;
@@ -209,7 +209,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
+  margin-bottom:30px;
 }
 
 .campaign{
@@ -218,6 +218,7 @@ export default {
   justify-content: center;
   align-items: center;
   gap: 30px;
+  margin-bottom: 120px;
 }
 
 .campaign-box{
