@@ -7,12 +7,24 @@ import PwRecover from "../views/PwRecover.vue";
 import JoinMember from "../views/JoinMember.vue";
 import AppMyShop from "../views/AppMyShop.vue";
 import MemberInformation from "../views/MemberInformation.vue";
+import ReviewView from '../views/ReviewView.vue'
+import DetailedPage from '../views/DetailedPage.vue' 
+import ShoppingCart from '../views/ShoppingCartView.vue'
+import ProductBoard from '@/views/ProductBoard.vue'
+import TheOrderform from '../views/TheOrderform.vue'
 
 const routes = [
   {
     path: "/",
     name: "home",
     component: HomeView,
+  },
+  {
+    path: '/category/:category',
+
+    name: 'product',
+    props: true,
+    component: ProductBoard
   },
   {
     path: "/customerservice",
@@ -49,7 +61,28 @@ const routes = [
     name: "memberinformation",
     component: MemberInformation,
   },
-];
+  {
+    path: '/review',
+    name: 'review',
+    component: ReviewView
+  },
+  {
+    path: '/detailed',
+    name: 'detailed',
+    component: DetailedPage
+  },
+  {
+    path: '/theorder',
+    name: 'theorder',
+    component: TheOrderform
+  },
+  {
+    path: '/shoppingcart',
+    name: 'shoppingcart',
+    component: ShoppingCart
+  },
+  
+]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

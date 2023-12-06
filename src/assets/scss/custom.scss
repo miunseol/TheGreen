@@ -3,62 +3,128 @@
 // Default variable overrides
 
 //색상 설정
+$primary: #24a841;
+$secondary: #051809;
+$secondary-emphasis: #0b5c1d;
+$info: #ebf3e8;
 
-$primary : #24A841;
-
-$theme-colors:(
-  "primary" : $primary,
-  "secondary" : #051809,
-  "success":    red,
-  "info":       red,
-  "warning":    red,
-  "danger":     red,
-  "light":      red,
-  "dark":       red
+$theme-colors: (
+  "primary": $primary,
+  "primary-dark" : #28853D,
+  "secondary": $secondary,
+  "success": #27DF17,
+  "info": $info,
+  "warning": #F2943C,
+  "danger": #E81616,
+  "light": #F5F5F5,
+  "dark": #505246,
 );
 
-
-
 //전역 설정
-*{
-  border:0; margin:0; padding:0;
+html,
+html * {
+  border: 0;
+  margin: 0;
+  padding: 0;
   user-select: none;
-  font-family: "Noto sans kr",sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
+  box-sizing: border-box;
 }
-.container{
-  min-width:1024px;
-  max-width:1200px;
+.container {
+  min-width: 1024px;
+  max-width: 1200px;
+  padding-bottom: 50px;
 }
-a{
+a {
   text-decoration: none;
-  color: text-secondary;
 }
-ul,ol,li{
+ul,
+ol,
+li {
   list-style: none;
   margin-bottom: 0;
 }
-li>a{
-  padding: 20px 4px;
-  height: 100%;
+li > a {
+  color: $secondary;
+}
+li:hover > a {
+  color: $secondary-emphasis;
 }
 
-
-
+.form-control:focus {
+  color: transparent;
+  background-color: transparent;
+  border-color: transparent;
+  outline: 0;
+}
 
 //폰트 설정
-.head-top-md{
-  font-weight:bold;
-  font-size:20px;
+.head-top-md {
+  font-weight: 600;
+  font-size: 20px;
 }
 
-.head-menu-norm{
-  font-weight:normal;
-  font-size:12px;
+.head-top-menu-md {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.head-menu-norm {
+  font-weight: normal;
+  font-size: 12px;
+}
+
+.body-title-norm {
+  font-weight: normal;
+  font-size: 18px;
+}
+
+.body-title-bd {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.body-title-30norm{
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.body-menu-norm {
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.body-menu-md {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.body-content-norm {
+  font-weight: normal;
+  font-size: 16px;
+}
+.body-content-md {
+  font-weight: 400;
+  font-size: 14px;
+}
+.body-detail-menu-16b {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+}
+.body-detail-content-lg {
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
 }
 
 // Required
 @import "../../../node_modules/bootstrap/scss/variables";
 @import "../../../node_modules/bootstrap/scss/variables-dark";
-@import "../../../node_modules/bootstrap/scss/maps";
 @import "../../../node_modules/bootstrap/scss/mixins";
+@import "../../../node_modules/bootstrap/scss/buttons";
+@import "../../../node_modules/bootstrap/scss/maps";
 @import "../../../node_modules/bootstrap/scss/root";
