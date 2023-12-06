@@ -27,7 +27,7 @@ export default {
     height: 100%;
   }
   section{
-    outline:1px solid red;
+    
     width: 1200px;
     display: flex;
     justify-content: space-between;

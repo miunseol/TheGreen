@@ -43,14 +43,7 @@ export default {
   data(){
     return{
       categorypath:'',
-      // category:[
-      //   "BEST",
-      //   "기획전",
-      //   "리빙상품",
-      //   "뷰티상품",
-      //   "패션상품",
-      // ],
-      
+           
     }
   },
   props:{
@@ -83,12 +76,13 @@ export default {
     display: flex;
     margin: auto;
     justify-content: space-between;
-    outline: 1px solid red;
+    align-items: center;
+    
   }
   .sub-category{
     display: flex;
     justify-content: space-around;
-    /* outline: 5px solid blue; */
+    
     width: 1200px;
     height: 44px;
     padding: 0 120px;
@@ -113,8 +107,9 @@ export default {
     font-weight: normal;
     display: flex;
     width: 267px;
-    /* justify-content: space-around; */
-    outline: 1px solid red;
+    justify-content: space-around;
+    
+    
   }
   .product-filter > .filter > li{
     /* margin-left: 15px; */
