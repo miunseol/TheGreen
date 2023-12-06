@@ -2,15 +2,15 @@
   <!--각 링크 수정 필요-->
   <div class="home">
     <div class="top-contents">
-      <h2 class="head상단메뉴M">베스트</h2>
+      <h2 class="head-top-menu-md">베스트</h2>
       <router-link to="#" class="best-product" :key="i" v-for="(product,i) in products">
         <img :src="product.path" alt="">
-        <p class="body주제B" style="white-space:pre-line">{{ product.product_name }}</p>
+        <p class="body-title-bd text-center" style="white-space:pre-line">{{ product.product_name }}</p>
       </router-link>
     </div> <!-- top contents 끝-->
     <div class="subtitle">
-      <h3>진행중인 기획전</h3>
-      <span>전체보기 &gt;</span>
+      <h3 class="body-title-norm">진행중인 기획전</h3>
+      <span class="body-title-bd">전체보기 &gt;</span>
     </div>
     <div class="mid-contents">
       <div class="left-box">
@@ -24,8 +24,8 @@
       </div> <!--right box-->
     </div> <!--mid-contents-->
     <div class="subtitle">
-      <h3>새로나온 상품</h3>
-      <span>전체보기 &gt;</span>
+      <h3 class="body-title-norm">새로나온 상품</h3>
+      <span class="body-title-bd">전체보기 &gt;</span>
     </div>
     <div class="bottom-contents">
       <div class="product-list">
@@ -125,9 +125,6 @@ export default {
 </script>
 
 <style scoped>
-img{
-  
-}
 .top-contents{
   display: flex;
   width: 1200px;

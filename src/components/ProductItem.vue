@@ -36,8 +36,8 @@ img{
   }
   .product-item h4{
     font-size: 16px;
-    font-weight: normal;
-    color: #505246;
+    /* font-weight: normal;
+    color: #505246; */
     text-align: center;
     padding-top: 10px;
     box-sizing: border-box;
