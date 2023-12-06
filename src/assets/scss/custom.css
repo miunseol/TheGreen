@@ -35,6 +35,13 @@ li:hover > a {
   color: #0b5c1d;
 }
 
+.form-control:focus {
+  color: transparent;
+  background-color: transparent;
+  border-color: transparent;
+  outline: 0;
+}
+
 .head-top-md {
   font-weight: 600;
   font-size: 20px;

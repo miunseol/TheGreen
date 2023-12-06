@@ -51,6 +51,13 @@ li:hover > a {
   color: $secondary-emphasis;
 }
 
+.form-control:focus {
+  color: transparent;
+  background-color: transparent;
+  border-color: transparent;
+  outline: 0;
+}
+
 //폰트 설정
 .head-top-md {
   font-weight: 600;
