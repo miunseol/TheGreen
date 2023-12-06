@@ -4,7 +4,7 @@
     <form @submit.prevent="submitForm">
       <div class="name">
         <label for="name">이름</label>
-        <input type="text" v-model="name" placeholder="이름을 입력해주세요" />
+        <input type="text" v-model="name" placeholder="이름을 입력해주세요"  />
       </div>
       <hr />
       <div class="id">
@@ -98,7 +98,6 @@
             type="checkbox"
             value=""
             id="flexCheckChecked"
-            checked
           />
           <label class="form-check-label" for="flexCheckChecked1">
             [필수] 쇼핑몰 이용약관
@@ -111,7 +110,6 @@
             type="checkbox"
             value=""
             id="flexCheckChecked"
-            checked
           />
 
           <label class="form-check-label" for="flexCheckChecked2">
@@ -125,7 +123,6 @@
             type="checkbox"
             value=""
             id="flexCheckChecked"
-            checked
           />
           <label class="form-check-label" for="flexCheckChecked3">
             [필수] 청약철회방침 동의
@@ -135,6 +132,7 @@
         <p>주문 내용을 확인했으며 약관에 동의합니다.</p>
       </div>
     </form>
+    <button type="button" class="btn">✓ 회원가입</button>
   </div>
 </template>
 
@@ -201,7 +199,7 @@ export default {
 .container {
   display: flex;
   width: 900px;
-  height: 993px;
+  height: 1030px;
   padding: 16px 20px;
   flex-direction: column;
   justify-content: space-between;
@@ -228,7 +226,6 @@ export default {
   padding: 0px 12px;
   border: 1px solid var(--C8C8C8, #c8c8c8);
   background: var(--FFFFFF, #fff);
-  color: var(--C8C8C8, #c8c8c8);
   font-size: 12px;
   font-weight: 400;
   line-height: normal;
@@ -249,7 +246,6 @@ export default {
   padding: 0px 12px;
   border: 1px solid var(--C8C8C8, #c8c8c8);
   background: var(--FFFFFF, #fff);
-  color: var(--C8C8C8, #c8c8c8);
   font-size: 12px;
   font-weight: 400;
   line-height: normal;
@@ -284,7 +280,6 @@ export default {
   padding: 0px 12px;
   border: 1px solid var(--C8C8C8, #c8c8c8);
   background: var(--FFFFFF, #fff);
-  color: var(--C8C8C8, #c8c8c8);
   font-size: 12px;
   font-weight: 400;
   line-height: normal;
@@ -305,7 +300,6 @@ export default {
   padding: 0px 12px;
   border: 1px solid var(--C8C8C8, #c8c8c8);
   background: var(--FFFFFF, #fff);
-  color: var(--C8C8C8, #c8c8c8);
   font-size: 12px;
   font-weight: 400;
   line-height: normal;
@@ -331,7 +325,6 @@ export default {
   margin-right: 8px;
   border: 1px solid var(--C8C8C8, #c8c8c8);
   background: var(--FFFFFF, #fff);
-  color: var(--505246, #505246);
   font-size: 12px;
   font-weight: 400;
   line-height: normal;
@@ -344,6 +337,9 @@ export default {
   margin: 0 8px 0 8px;
   border: 1px solid var(--C8C8C8, #c8c8c8);
   background: var(--FFFFFF, #fff);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: normal;
 }
 .phone > #mobile3 {
   width: 120px;
@@ -352,6 +348,9 @@ export default {
   margin-left: 8px;
   border: 1px solid var(--C8C8C8, #c8c8c8);
   background: var(--FFFFFF, #fff);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: normal;
 }
 .address > label {
   width: 100px;
@@ -365,7 +364,6 @@ export default {
   margin-right: 8px;
   border: 1px solid var(--C8C8C8, #c8c8c8);
   background: var(--FFFFFF, #fff);
-  color: var(--C8C8C8, #c8c8c8);
   font-size: 12px;
   font-weight: 400;
   line-height: normal;
@@ -392,7 +390,6 @@ export default {
   margin-bottom: 12px;
   border: 1px solid var(--C8C8C8, #c8c8c8);
   background: var(--FFFFFF, #fff);
-  color: var(--C8C8C8, #c8c8c8);
   font-size: 12px;
   font-weight: 400;
   line-height: normal;
@@ -404,7 +401,6 @@ export default {
   margin-bottom: 12px;
   border: 1px solid var(--C8C8C8, #c8c8c8);
   background: var(--FFFFFF, #fff);
-  color: var(--C8C8C8, #c8c8c8);
   font-size: 12px;
   font-weight: 400;
   line-height: normal;
@@ -415,7 +411,6 @@ export default {
   padding: 0px 12px;
   border: 1px solid var(--C8C8C8, #c8c8c8);
   background: var(--FFFFFF, #fff);
-  color: var(--C8C8C8, #c8c8c8);
   font-size: 12px;
   font-weight: 400;
   line-height: normal;
@@ -426,7 +421,6 @@ export default {
   padding: 0px 12px;
   border: 1px solid var(--C8C8C8, #c8c8c8);
   background: var(--FFFFFF, #fff);
-  color: var(--C8C8C8, #c8c8c8);
   font-size: 12px;
   font-weight: 400;
   line-height: normal;
@@ -454,9 +448,43 @@ export default {
 }
 
 .checkbox p {
+  margin: 14px 0 14px 20px;
   color: var(--051809, #051809);
   font-size: 14px;
   font-weight: 400;
   line-height: normal;
+}
+
+.form-check:first-child {
+  color: var(--051809, #051809);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: normal;
+}
+.form-check {
+  margin: 14px 0 14px 20px;
+  color: var(--505246, #505246);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.btn {
+  width: 160px;
+  height: 40px;
+  padding-left: 26px;
+  margin-top: 16px;
+  display: flex;
+  color: var(--EDF1D6, #edf1d6);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: normal;
+  border-radius: 8px;
+  background: var(--28C852, #28c852);
+}
+
+.form-check-input:checked {
+  background-color: #28c852;
+  border-color: #28c852;
 }
 </style>

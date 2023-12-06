@@ -19,49 +19,87 @@
     <div class="checkbox">
       <div class="form-check">
         <input
+          @click="callNumber = 'email'"
           class="form-check-input"
           type="radio"
           name="flexRadioDefault"
           id="flexRadioDefault1"
         />
-        <label class="form-check-label" for="flexRadioDefault1"></label>이메일
+        <label class="form-check-label" for="flexRadioDefault1">이메일</label>
       </div>
       <div class="form-check">
         <input
+          @click="callNumber = 'call'"
           class="form-check-input"
           type="radio"
           name="flexRadioDefault"
           id="flexRadioDefault2"
           checked
         />
-        <label class="form-check-label" for="flexRadioDefault2"></label>전화번호
+        <label class="form-check-label" for="flexRadioDefault2">전화번호</label>
       </div>
     </div>
-    <div class="input-group mb-3">
-      <p>이름</p>
-      <input type="text" class="form-control rounded" aria-label="Username" />
-    </div>
-    <div class="call">
-      <form action="/action_page.php" class="callbox">
-        <label for="phone">전화번호</label>
+    <form>
+      <div class="input-group mb-3">
+        <p>이름</p>
         <input
-          type="tel"
-          id="phone"
-          name="phone"
-          placeholder="예: 010-123-4567"
-          pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}"
+          type="text"
+          class="form-control rounded"
+          aria-label="Username"
           required
         />
-      </form>
-    </div>
-    <button class="btn btn-outline-secondary" type="button" id="button-addon1">
-      확인
-    </button>
+      </div>
+      <div class="call">
+        <div class="callbox">
+          <div class="one" v-if="callNumber == 'call'">
+            <label for="phone">전화번호</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              placeholder="예: 010-1234-5678"
+              pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}"
+              required
+            />
+          </div>
+          <div class="one" v-if="callNumber == 'email'">
+            <label for="email">이메일 </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder=" @ "
+              required
+            />
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-outline-secondary" type="input" id="button-addon1">
+        확인
+      </button>
+    </form>
   </div>
 </template>
 
 
-<script></script>
+<script>
+export default {
+  data() {
+    return {
+      callNumber: "call",
+    };
+  },
+  methods: {
+    call() {
+      if (this.callNumber == "call") {
+        return;
+      } else {
+        this.callNumber = "email";
+      }
+    },
+  },
+};
+</script>
 
 <style scoped>
 .container {
@@ -169,6 +207,22 @@
   align-items: center;
   justify-content: space-between;
 }
+.one {
+  width: 480px;
+  display: flex;
+  justify-content: space-between;
+}
+.one label {
+  color: var(--051809, #051809);
+  font-family: Noto Sans;
+  font-size: 14px;
+  font-weight: 400;
+  display: flex;
+  width: 100px;
+  height: 40px;
+  flex-direction: column;
+  justify-content: center;
+}
 
 .call p {
   color: var(--051809, #051809);
@@ -176,6 +230,14 @@
 }
 
 .call #phone {
+  width: 300px;
+  height: 40px;
+  border-radius: 4px;
+  border: 1px solid var(--C8C8C8, #c8c8c8);
+  background: var(--FFFFFF, #fff);
+  padding: 0px 12px;
+}
+.call #email {
   width: 300px;
   height: 40px;
   border-radius: 4px;
@@ -196,5 +258,9 @@
   border-radius: 8px;
   border: 1px solid var(--A3A78B, #a3a78b);
   background: var(--28C852, #28c852);
+}
+.form-check-input:checked {
+  background-color: #28c852;
+  border-color: #28c852;
 }
 </style>

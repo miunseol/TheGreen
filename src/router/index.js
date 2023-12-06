@@ -5,7 +5,8 @@ import LoginView from "../views/LoginView.vue";
 import IdRecover from "../views/IdRecover.vue";
 import PwRecover from "../views/PwRecover.vue";
 import JoinMember from "../views/JoinMember.vue";
-import AppMyShop from "../components/AppMyShop.vue";
+import AppMyShop from "../views/AppMyShop.vue";
+import MemberInformation from "../views/MemberInformation.vue";
 
 const routes = [
   {
@@ -42,6 +43,11 @@ const routes = [
     path: "/appmyshop",
     name: "appmyshop",
     component: AppMyShop,
+  },
+  {
+    path: "/memberinformation",
+    name: "memberinformation",
+    component: MemberInformation,
   },
 ];
 

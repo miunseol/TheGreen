@@ -188,4 +188,8 @@ export default {};
   border: 1px solid var(--A3A78B, #a3a78b);
   background: var(--28C852, #28c852);
 }
+.form-check-input:checked {
+  background-color: #28c852;
+  border-color: #28c852;
+}
 </style>
