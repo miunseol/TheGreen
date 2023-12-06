@@ -136,7 +136,7 @@ export default {
   gap: 25px;
   flex-shrink: 0;
   margin: auto;
-  outline: 1px solid red;
+  
 }
 .best-product{
   display: flex;
@@ -153,7 +153,7 @@ export default {
   justify-content: flex-end;
   align-items: center;
   gap: 430px;
-  outline: 1px solid black;
+  
   margin: 15px auto;
 }
 .mid-contents{

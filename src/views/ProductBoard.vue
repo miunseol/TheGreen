@@ -47,7 +47,6 @@ export default {
 .product-item {
   width: 910px;
   height: 1115px;
-  outline: 1px solid red;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
