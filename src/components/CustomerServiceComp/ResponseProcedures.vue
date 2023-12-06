@@ -5,7 +5,7 @@
       <div class="imgSection d-flex justify-content-center align-items-center gap-3">
         <div class="stepBox text-bg-info d-flex flex-column align-items-center">
           <div class="imgBox">
-            <img src="@/assets/image/counselling.png" />
+            <img src="@/assets/image/icon/counselling.png" />
           </div>
           <h3 class="body-detail-menu-16B">문의 접수</h3>
           <p class="body-detail-content-lg">문의 및 불편사항 발생</p>
@@ -13,7 +13,7 @@
         <span>&gt;</span>
         <div class="stepBox text-bg-info d-flex flex-column  align-items-center">
           <div class="imgBox">
-            <img src="@/assets/image/clipboardcheck.png" />
+            <img src="@/assets/image/icon/clipboardcheck.png" />
           </div>
           <h3 class="body-detail-menu-16B">상담 접수</h3>
           <p class="body-detail-content-lg">다양한 경로로 접수<br />전화, 문자, 온라인, 채팅 등</p>
@@ -21,7 +21,7 @@
         <span>&gt;</span>
         <div class="stepBox text-bg-info d-flex flex-column align-items-center">
           <div class="imgBox">
-            <img src="@/assets/image/headset.png" />
+            <img src="@/assets/image/icon/headset.png" />
           </div>
           <h3 class="body-detail-menu-16B">전문 상담</h3>
           <p class="body-detail-content-lg">통합시스템으로<br />접수 · 상담</p>
@@ -29,7 +29,7 @@
         <span>&gt;</span>
         <div class="stepBox text-bg-info d-flex flex-column align-items-center">
           <div class="imgBox">
-            <img id="imgHandShake" src="@/assets/image/handshake.png" />
+            <img id="imgHandShake" src="@/assets/image/icon/handshake.png" />
           </div>
           <h3 class="body-detail-menu-16B">신속 해결</h3>
           <p class="body-detail-content-lg">제품개선 및<br />소비자중심경영에 반영</p>

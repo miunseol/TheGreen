@@ -34,7 +34,7 @@
     </div>
     <!-- 메뉴에 따른 컴포넌트 표시 -->
     <response-procedure v-if="activeMenu === 'procedure'"/>
-    <f-a-question v-if="activeMenu === 'faq'"/>
+    <f-a-question v-if="activeMenu === 'faq'"  @toInquiryReception="changeActiveMenu" />
     <inquiry-reception v-if="activeMenu === 'inquiry'"/>
   </div>
 </template>
@@ -61,6 +61,14 @@ export default {
         e.target.classList.add("active");
       }
     },
+    changeActiveMenu(){
+      this.activeMenu = 'inquiry';
+      const btns = document.querySelectorAll("div.d-flex>button.btn");
+        btns.forEach((btn) => {
+          btn.classList.remove("active");
+        });
+        btns[2].classList.add("active");
+    }
   }
 };
 </script>

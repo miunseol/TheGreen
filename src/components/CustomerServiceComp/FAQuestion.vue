@@ -18,7 +18,7 @@
             />
             <button type="button" class="btn">검색</button>
           </div>
-          <router-link class="d-flex body-title-bd pe-3" to="/">원하는 질문이 없나요? 직접 문의해보세요!</router-link>
+          <a class="d-flex body-title-bd pe-3" @click="$emit('toInquiryReception')">원하는 질문이 없나요? 직접 문의해보세요!</a>
         </section>
         <section class="category d-flex flex-column align-items-start">
           <div class="filter d-flex justify-content-between align-items-center">
@@ -49,7 +49,7 @@
     <h1 class="head-top-menu-md text-center">교환/배송/환불</h1>
     <section class="faqList d-flex flex-column align-items-start">
       <article class="d-flex align-items-center align-self-stretch">
-        <img src="@/assets/image/counselling.png" alt="question-icon" />
+        <img src="@/assets/image/icon/counselling.png" alt="question-icon" />
         <div
           class="content d-flex flex-column align-items-start align-self-stretch"
         >
@@ -62,7 +62,7 @@
         </div>
       </article>
       <article class="d-flex align-items-center align-self-stretch">
-        <img src="@/assets/image/counselling.png" alt="question-icon" />
+        <img src="@/assets/image/icon/counselling.png" alt="question-icon" />
         <div
           class="content d-flex flex-column align-items-start align-self-stretch"
         >
@@ -73,7 +73,7 @@
         </div>
       </article>
       <article class="d-flex align-items-center align-self-stretch">
-        <img src="@/assets/image/counselling.png" alt="question-icon" />
+        <img src="@/assets/image/icon/counselling.png" alt="question-icon" />
         <div
           class="content d-flex flex-column align-items-start align-self-stretch"
         >
@@ -85,7 +85,7 @@
         </div>
       </article>
       <article class="d-flex align-items-center align-self-stretch">
-        <img src="@/assets/image/counselling.png" alt="question-icon" />
+        <img src="@/assets/image/icon/counselling.png" alt="question-icon" />
         <div
           class="content d-flex flex-column align-items-start align-self-stretch"
         >
@@ -97,7 +97,7 @@
         </div>
       </article>
       <article class="d-flex align-items-center align-self-stretch">
-        <img src="@/assets/image/counselling.png" alt="question-icon" />
+        <img src="@/assets/image/icon/counselling.png" alt="question-icon" />
         <div
           class="content d-flex flex-column align-items-start align-self-stretch"
         >
