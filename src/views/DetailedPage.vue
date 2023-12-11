@@ -61,8 +61,8 @@
       <img src="https://irecipe.com/mobile/upload/pd/20230823CleansingBalm_1.jpg" style="width:1200px">
     </div>
     <div class="eventlist">
-      <span><a href="#header">TOP</a></span>
-      <span><a href="#review">REVIEW</a></span>
+      <span><a href="#header"><i class="fa-solid fa-arrow-up"></i></a></span>
+      
 
     </div>
     <div class="detaileditem">
@@ -332,7 +332,7 @@ export default {
 
 .buttonList {
   display: flex;
-
+ 
 
   gap: 8px;
 
@@ -390,38 +390,51 @@ export default {
 }
 
 .eventlist {
+  
   position: fixed;
-  top: 400px;
-  right:194px;
+  bottom: 100px;
+  right: calc((100% - 1150px)/2);
   display: flex;
   flex-direction: column;
   
-  text-align: center;;
+  text-align: center;
   display:block;
-
+  
+  border-radius: 50px;
 }
+
+
 
 .eventlist span {
   
   border: 1px solid #c8c8c8;
   background: #fff;
-  
+  color:#c8c8c8;
   box-sizing: border-box;
-  border-radius: 8px;
+  border-radius: 50px;
   display: block;
   margin:10px 0;
   
 }
+
+
 .eventlist span a{
   display:flex;
-  width:100px;
+  width:60px;
   height:60px;
   justify-content: center;
   align-items: center;
+  color:#c8c8c8;
   
   
   
   
+}
+.eventlist span a:hover{
+  color:#28c852;
+  border-radius: 50px;
+  background-color:#505246;
+ 
 }
 
 .detaileditem {
