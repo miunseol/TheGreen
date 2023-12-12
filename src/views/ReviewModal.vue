@@ -31,7 +31,7 @@
             <label for="formGroupExampleInput" class="form-label">이름</label>
             <input
               type="text"
-              class="form-control"
+              class="form-control custom-form-control-secondary"
               id="formGroupExampleInput"
               placeholder="이름을 입력해주세요"
             />
@@ -42,7 +42,7 @@
             >
             <input
               type="text"
-              class="form-control"
+              class="form-control custom-form-control-secondary"
               id="formGroupExampleInput"
               placeholder="리뷰 등록을 위해 비밀번호를 입력해주세요"
             />
@@ -55,15 +55,15 @@
             <div class="input-group">
               <span class="input-group-text">리뷰작성</span>
               <textarea
-                class="form-control"
+                class="form-control custom-form-control-secondary"
                 aria-label="With textarea"
               ></textarea>
             </div>
           </div>
           <div class="input-group mb-3">
-            <input type="file" class="form-control" id="inputGroupFile02" />
+            <input type="file" class="form-control custom-form-control-secondary" id="inputGroupFile02" />
           </div>
-          <select class="form-select" aria-label="Default select example">
+          <select class="form-select custom-form-control-secondary" aria-label="Default select example">
             <option selected>아주 좋아요</option>
             <option value="1">아주 좋아요</option>
             <option value="2">맘에 들어요</option>
@@ -76,7 +76,7 @@
         <div class="modal-footer">
           <button
             type="button"
-            class="btn btn-secondary"
+            class="btn btn-bd-simple"
             data-bs-dismiss="modal"
           >
             취소

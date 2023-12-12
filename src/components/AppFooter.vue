@@ -1,6 +1,6 @@
 <template>
   <footer class="">
-    <div class="container row py-5 mx-auto">
+    <div class="container row py-5 mx-auto d-flex justify-content-between">
       <div class="col-4">
       <h5>The Green</h5>
       <p>
@@ -42,5 +42,8 @@
 <style scoped>
 footer {
   background-color: #f8f9fa;
+  min-height: 250px;
+  min-width: 1440px;
+  margin:auto; 
 }
 </style>

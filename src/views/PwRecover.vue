@@ -5,7 +5,7 @@
     </div>
     <div class="memberType">
       <p>회원유형</p>
-      <select class="form-select" aria-label="Default select example">
+      <select class="form-select custom-form-control-secondary" aria-label="Default select example">
         <option selected>개인회원</option>
         <option value="1">법인회원</option>
       </select>
@@ -33,11 +33,11 @@
     </div>
     <div class="input-group mb-3">
       <p>아이디</p>
-      <input type="text" class="form-control rounded" aria-label="Userid" />
+      <input type="text" class="form-control custom-form-control-secondary rounded" aria-label="Userid" />
     </div>
     <div class="input-group mb-3">
       <p>이름</p>
-      <input type="text" class="form-control rounded" aria-label="Username" />
+      <input type="text" class="form-control custom-form-control-secondary rounded" aria-label="Username" />
     </div>
     <div class="call">
       <form action="/action_page.php" class="callbox">
@@ -147,8 +147,8 @@ export default {};
   width: 300px;
   height: 40px;
   border-radius: 4px;
-  border-color: var(--C8C8C8, #c8c8c8);
-  background: var(--FFFFFF, #fff);
+  /* border-color: var(--C8C8C8, #c8c8c8);
+  background: var(--FFFFFF, #fff); */
   align-items: center;
 }
 
@@ -170,8 +170,8 @@ export default {};
   width: 300px;
   height: 40px;
   border-radius: 4px;
-  border: 1px solid var(--C8C8C8, #c8c8c8);
-  background: var(--FFFFFF, #fff);
+  /* border: 1px solid var(--C8C8C8, #c8c8c8);
+  background: var(--FFFFFF, #fff); */
   display: flex;
   padding: 0px 12px;
   align-items: center;

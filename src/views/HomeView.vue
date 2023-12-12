@@ -1,6 +1,6 @@
 <template>
   <!--각 링크 수정 필요-->
-  <div class="home">
+  <div class="home container">
     <div class="top-contents">
       <h2 class="head-top-menu-md">베스트</h2>
       <router-link to="#" class="best-product" :key="i" v-for="(product,i) in products">
@@ -18,9 +18,7 @@
       </div>
       <div class="right-box" >
         <product-item :product="product" class="event-product"/>
-        <product-item/>
-        <product-item/>
-        <product-item/>
+        
       </div> <!--right box-->
     </div> <!--mid-contents-->
     <div class="subtitle">
@@ -125,6 +123,9 @@ export default {
 </script>
 
 <style scoped>
+.home{
+  width:1440px;
+}
 .top-contents{
   display: flex;
   width: 1200px;
@@ -145,6 +146,10 @@ export default {
   flex-direction: column;
   align-items: center;
   gap: 24px;
+}
+
+.best-product:hover{
+  transform: scale(1.2rem) 0.3s ease-in-out;
 }
 .subtitle{
   display: flex;
