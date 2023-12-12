@@ -55,9 +55,6 @@
         </div>
       </div>
     </div>
-
-
-  </div>
   <div class="detailedcenter">
     <div class="detailedgroup">
       <span>제품상세</span>
@@ -373,8 +370,8 @@ export default {
 .eventlist {
   
   position: fixed;
-  bottom: 100px;
-  left: max(calc((100vw - 1200px)*0.5 + 1200px),1330px); 
+  bottom: 50px;
+  left: max(calc((100vw - 1200px) * 0.5 + 1200px),1380px); 
   display: flex;
   flex-direction: column;
   

@@ -7,7 +7,7 @@
           <div class="imgBox">
             <img src="@/assets/image/icon/counselling.png" />
           </div>
-          <h3 class="body-detail-menu-16B">문의 접수</h3>
+          <p class="body-detail-menu-16B">문의 접수</p>
           <p class="body-detail-content-lg">문의 및 불편사항 발생</p>
         </div>
         <span>&gt;</span>
@@ -15,7 +15,7 @@
           <div class="imgBox">
             <img src="@/assets/image/icon/clipboardcheck.png" />
           </div>
-          <h3 class="body-detail-menu-16B">상담 접수</h3>
+          <p class="body-detail-menu-16B">상담 접수</p>
           <p class="body-detail-content-lg">다양한 경로로 접수<br />전화, 문자, 온라인, 채팅 등</p>
         </div>
         <span>&gt;</span>
@@ -23,7 +23,7 @@
           <div class="imgBox">
             <img src="@/assets/image/icon/headset.png" />
           </div>
-          <h3 class="body-detail-menu-16B">전문 상담</h3>
+          <p class="body-detail-menu-16B">전문 상담</p>
           <p class="body-detail-content-lg">통합시스템으로<br />접수 · 상담</p>
         </div>
         <span>&gt;</span>
@@ -31,7 +31,7 @@
           <div class="imgBox">
             <img id="imgHandShake" src="@/assets/image/icon/handshake.png" />
           </div>
-          <h3 class="body-detail-menu-16B">신속 해결</h3>
+          <p class="body-detail-menu-16B">신속 해결</p>
           <p class="body-detail-content-lg">제품개선 및<br />소비자중심경영에 반영</p>
         </div>
       </div>
@@ -116,6 +116,10 @@ div.stepBox {
 
 .stepBox >.imgBox{
   height: 100px;
+  margin-bottom: 20px;
+}
+.stepBox > p:last-child{
+  margin-top: 30px;
 }
 .imgSection>div.stepBox:last-child>.imgBox{
   height: 80px;

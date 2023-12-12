@@ -2,6 +2,15 @@
 @import "../../../node_modules/bootstrap/scss/functions";
 // Default variable overrides
 
+:root {
+  --bs-breakpoint-xs: 1200px;
+  --bs-breakpoint-sm: 1200px;
+  --bs-breakpoint-md: 1200px;
+  --bs-breakpoint-lg: 1200px;
+  --bs-breakpoint-xl: 1200px;
+  --bs-breakpoint-xxl: 1400px;
+}
+
 //색상 설정
 $primary: #24a841;
 $secondary: #505246;
@@ -103,7 +112,7 @@ li:hover > a {
   font-weight: 400;
   font-size: 14px;
 }
-.body-detail-menu-16b {
+.body-detail-menu-16B {
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
