@@ -1,15 +1,15 @@
 <template>
   <div class="container d-flex flex-column align-items-center">
-    <h1 class="text-center my-3">문의 작성</h1>
+    <h1 class="text-center body-title-30norm my-3">문의 작성</h1>
     <form class="row gy-2 gx-3 align-items-center">
       <table
         class="table text-nowrap input-group-sm table-bordered border-primary"
       >
         <tr>
-          <th class="table-success">상담분류</th>
-          <td class="col-auto">
+          <!-- <th class="table-success pt-0 body-title-bd">상담분류</th> -->
+          <td class="col-auto pt-0">
             <select
-              class="form-select form-select-sm"
+              class="form-select form-select-smbody-content-md"
               aria-label="Small select"
             >
               <option selected>상담 유형</option>
@@ -22,11 +22,11 @@
           </td>
         </tr>
         <tr>
-          <th class="table-success">제목</th>
-          <td>
+          <!-- <th class="table-success body-title-bd">제목</th> -->
+          <td class ="pt-0">
             <input
               type="text"
-              class="form-control text-secondary"
+              class="form-control custom-form-control-secondary body-content-md"
               placeholder="제목"
               aria-label="제목"
               aria-describedby="문의 작성-제목"
@@ -34,25 +34,25 @@
           </td>
         </tr>
         <tr>
-          <th class="table-success">내용</th>
-          <td>
+          <!-- <th class="table-success body-title-bd">내용</th> -->
+          <td class="pt-0">
             <div class="form-floating">
               <textarea
-                class="form-control text-secondary"
+                class="form-control custom-form-control-secondary text-secondary body-content-md"
                 placeholder="내용을 적어주세요"
                 style="height: 100px"
               ></textarea>
-              <label>내용을 적어주세요</label>
+              <label class="body-content-md">내용을 적어주세요</label>
             </div>
           </td>
         </tr>
         <tr>
-          <th class="table-success">파일첨부</th>
-          <td>
+          <!-- <th class="table-success body-title-bd  ">파일첨부</th> -->
+          <td class="pt-0">
             <div class="">
               <input
                 type="file"
-                class="form-control text-secondary"
+                class="form-control custom-form-control-secondary text-secondary body-content-md"
                 aria-describedby="inputGroupFile"
                 aria-label="Upload"
               />
@@ -60,12 +60,15 @@
           </td>
         </tr>
       </table>
-      <button type="submit" class="btn btn-outline-primary">Submit</button>
+      <button type="submit" class="btn btn-outline-primary body-content-md">문의 등록</button>
     </form>
   </div>
 </template>
 <script>
-export default {};
+export default {
+  data(){
+  }
+};
 </script>
 <style scoped>
 </style>

@@ -11,7 +11,7 @@
     </div>
     <div class="memberType">
       <p>회원유형</p>
-      <select class="form-select" aria-label="Default select example">
+      <select class="form-select custom-form-control-secondary" aria-label="Default select example">
         <option selected>개인회원</option>
         <option value="1">법인회원</option>
       </select>
@@ -44,7 +44,7 @@
         <p>이름</p>
         <input
           type="text"
-          class="form-control rounded"
+          class="form-control custom-form-control-secondary rounded"
           aria-label="Username"
           required
         />
@@ -56,6 +56,7 @@
             <input
               type="tel"
               id="phone"
+              class = "form-control custom-form-control-secondary"
               name="phone"
               placeholder="예: 010-1234-5678"
               pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}"
@@ -67,6 +68,7 @@
             <input
               type="email"
               id="email"
+              class = "form-control custom-form-control-secondary"
               name="email"
               placeholder=" @ "
               required
@@ -194,8 +196,8 @@ export default {
   width: 300px;
   height: 40px;
   border-radius: 4px;
-  border-color: var(--C8C8C8, #c8c8c8);
-  background: var(--FFFFFF, #fff);
+  /* border-color: var(--C8C8C8, #c8c8c8);
+  background: var(--FFFFFF, #fff); */
   align-items: center;
 }
 
@@ -233,16 +235,16 @@ export default {
   width: 300px;
   height: 40px;
   border-radius: 4px;
-  border: 1px solid var(--C8C8C8, #c8c8c8);
-  background: var(--FFFFFF, #fff);
+  /* border: 1px solid var(--C8C8C8, #c8c8c8);
+  background: var(--FFFFFF, #fff); */
   padding: 0px 12px;
 }
 .call #email {
   width: 300px;
   height: 40px;
   border-radius: 4px;
-  border: 1px solid var(--C8C8C8, #c8c8c8);
-  background: var(--FFFFFF, #fff);
+  /* border: 1px solid var(--C8C8C8, #c8c8c8);
+  background: var(--FFFFFF, #fff); */
   display: flex;
   padding: 0px 12px;
   align-items: center;

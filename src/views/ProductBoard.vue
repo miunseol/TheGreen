@@ -1,5 +1,5 @@
 <template>
-  <div class="product-board">
+  <div class="product-board container">
     <!-- <div>{{$route.params.category}}</div> -->
     <product-category :category="category" />
     <product-item class="product-item" :product="product" />

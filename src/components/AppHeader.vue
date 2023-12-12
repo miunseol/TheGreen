@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header class="">
     <div class="row container d-flex flex-column justify-contents-center align-items-center mx-auto">
       <div class="col d-flex justify-content-between align-items-center">
       <router-link to="/"><img src="../assets/logo.png" alt="" /></router-link>
@@ -22,7 +22,7 @@
         <div class="input-group">
           <input
             type="text"
-            class="form-control text-secondary"
+            class="form-control custom-form-control-secondary text-secondary"
             placeholder="검색어를 입력하세요"
           />
           <a id="searchIcon" href="" class="input-group-text"
@@ -30,7 +30,7 @@
           /></a>
         </div>
         <router-link id="cartIcon" to="/shoppingcart"
-          ><img src="../assets/shoppingCart.png" alt=""
+          ><img src="../assets/shoppingCart.png" alt="" 
         /></router-link>
       </div>
     </div>
@@ -60,6 +60,13 @@
   }
 </script>
 <style scoped>
+
+header{
+  background-color: #f8f9fa;
+  min-width: 1440px;
+  margin:auto; 
+}
+
 ul#shopMenu > li {
   line-height: 68px;
 }
@@ -67,7 +74,16 @@ li>a{
   padding: 20px 4px;
   height: 100%;
 }
-header {
+.container {
   background-color: #f8f9fa;
+  padding: 50px 0 0 0;
+  margin: 0;
+}
+
+#cartIcon{
+  transition: transform 0.1s 0.1s ease-in-out;
+}
+#cartIcon:hover{
+  transform: rotate(-15deg);
 }
 </style>

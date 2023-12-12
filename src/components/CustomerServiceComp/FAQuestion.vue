@@ -11,7 +11,7 @@
           >
             <input
               type="text"
-              class="form-control"
+              class="form-control custom-form-control-secondary"
               placeholder="주문한 제품의 배송 상태를 어떻게 확인하나요?"
               aria-label="question-search"
               aria-describedby="faq-inputText"
@@ -155,7 +155,7 @@ section.mainmenu {
   color: #ebf3e8;
 }
 .searchBar > button:hover {
-  background-color: #a7d397;
+  background-color: var(--bs-primary-dark);
 }
 .searchBox > p {
   width: 300px;

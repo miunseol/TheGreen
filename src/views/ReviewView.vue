@@ -94,8 +94,6 @@ export default {
 
 <style scoped>
 * {
-  padding: 0;
-  margin: 0;
   border-style: none;
 }
 
@@ -105,8 +103,7 @@ ul {
 
 .MainReview {
   width: 1200px;
-  margin: auto;
-  margin-top:80px;
+  margin: 80px auto 0;
 }
 
 .ProductReview {
