@@ -1,15 +1,15 @@
 <template>
-  <div class="container d-flex flex-column align-items-center">
+  <div class="d-flex flex-column align-items-center">
     <h1 class="text-center body-title-30norm my-3">문의 작성</h1>
     <form class="row gy-2 gx-3 align-items-center">
       <table
-        class="table text-nowrap input-group-sm table-bordered border-primary"
+        class="table text-nowrap input-group-sm table-borderless"
       >
         <tr>
           <!-- <th class="table-success pt-0 body-title-bd">상담분류</th> -->
           <td class="col-auto pt-0">
             <select
-              class="form-select form-select-smbody-content-md"
+              class="form-select form-select-sm custom-form-control-secondary body-content-md"
               aria-label="Small select"
             >
               <option selected>상담 유형</option>
@@ -71,4 +71,7 @@ export default {
 };
 </script>
 <style scoped>
+button[type="submit"]:hover{
+  color: #f5f5f5;
+}
 </style>

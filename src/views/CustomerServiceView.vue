@@ -74,6 +74,8 @@ export default {
 </script>
 
 <style scoped>
+
+
 div>button {
   border-radius: 0;
   width: 200px;

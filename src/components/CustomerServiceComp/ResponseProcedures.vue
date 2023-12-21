@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="">
     <div class="steps text-center align-middle d-flex flex-column align-items-center">
       <p class="align-baseline head-top-menu-md" style="margin:0">고객 문의 해결 프로세스</p>
       <div class="imgSection d-flex justify-content-center align-items-center gap-3">

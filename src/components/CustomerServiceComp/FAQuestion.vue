@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="">
     <section class="mainmenu d-flex flex-column align-items-center">
       <h1 class="head-top-menu-md">키워드로 FAQ를 검색할 수 있습니다</h1>
       <div class="searchmenu d-flex justify-content-center align-items-start">

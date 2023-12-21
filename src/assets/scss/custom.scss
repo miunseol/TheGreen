@@ -17,6 +17,7 @@ $secondary: #505246;
 $secondary-emphasis: #0b5c1d;
 $info: #ebf3e8;
 $dark:#051809;
+$light:#f5f5f5;
 
 $theme-colors: (
   "primary": $primary,
@@ -26,15 +27,13 @@ $theme-colors: (
   "info": $info,
   "warning": #f2943c,
   "danger": #e81616,
-  "light": #f5f5f5,
+  "light": $light,
   "dark": $dark,
 );
 
 //전역 설정
 html,
 html * {
-  border: 0;
-  margin: 0;
   padding: 0;
   user-select: none;
   font-family: "Noto Sans KR", sans-serif;
@@ -136,6 +135,10 @@ li:hover > a {
   --bs-btn-active-color: $dark;
   --bs-btn-active-bg: $primary;
   --bs-btn-active-border-color: $primary;
+}
+
+.btn-outline-primary{
+  --bs-btn-hover-color: $light;
 }
 
 .custom-form-control-secondary {

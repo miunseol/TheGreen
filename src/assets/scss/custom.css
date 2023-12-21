@@ -9,8 +9,6 @@
 
 html,
 html * {
-  border: 0;
-  margin: 0;
   padding: 0;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -120,6 +118,10 @@ li:hover > a {
   --bs-btn-active-color: $dark;
   --bs-btn-active-bg: $primary;
   --bs-btn-active-border-color: $primary;
+}
+
+.btn-outline-primary {
+  --bs-btn-hover-color: $light;
 }
 
 .custom-form-control-secondary {
