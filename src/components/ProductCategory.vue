@@ -6,7 +6,7 @@
     <h2 class="category-title">
       {{ category }}
     </h2>
-    <div v-show="category!=='BEST'" class="product-filter">   
+    <div v-show="category!=='BEST' || category !== '기획전'" class="product-filter">   
       <ul class="sub-category"><!--for문으로 제어 예정-->
         <li style="background-color: #24A841;">전체상품</li>
         <li>주방용품</li>
@@ -15,7 +15,7 @@
         <li>생활잡화</li>
       </ul>
     </div>
-    <div class="product-filter">
+    <div v-show="category!=='기획전'" class="product-filter">
       <h4>
         전체 n개의 제품이 있습니다. <!--수정-->
       </h4>
